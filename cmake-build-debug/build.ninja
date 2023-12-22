@@ -61,6 +61,12 @@ build CMakeFiles/Casino.dir/Resources/SlotMachine.cpp.obj: CXX_COMPILER__Casino_
   OBJECT_DIR = CMakeFiles\Casino.dir
   OBJECT_FILE_DIR = CMakeFiles\Casino.dir\Resources
 
+build CMakeFiles/Casino.dir/Resources/Craps.cpp.obj: CXX_COMPILER__Casino_unscanned_Debug G$:/ipi/009-c++/Casino/Resources/Craps.cpp || cmake_object_order_depends_target_Casino
+  DEP_FILE = CMakeFiles\Casino.dir\Resources\Craps.cpp.obj.d
+  FLAGS = -g -fdiagnostics-color=always
+  OBJECT_DIR = CMakeFiles\Casino.dir
+  OBJECT_FILE_DIR = CMakeFiles\Casino.dir\Resources
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target Casino
@@ -69,7 +75,7 @@ build CMakeFiles/Casino.dir/Resources/SlotMachine.cpp.obj: CXX_COMPILER__Casino_
 #############################################
 # Link the executable Casino.exe
 
-build Casino.exe: CXX_EXECUTABLE_LINKER__Casino_Debug CMakeFiles/Casino.dir/main.cpp.obj CMakeFiles/Casino.dir/Resources/SlotMachine.cpp.obj
+build Casino.exe: CXX_EXECUTABLE_LINKER__Casino_Debug CMakeFiles/Casino.dir/main.cpp.obj CMakeFiles/Casino.dir/Resources/SlotMachine.cpp.obj CMakeFiles/Casino.dir/Resources/Craps.cpp.obj
   FLAGS = -g
   LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\Casino.dir

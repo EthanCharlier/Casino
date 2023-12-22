@@ -1,4 +1,5 @@
 #include "headers/SlotMachine.h"
+#include "headers/Craps.h"
 
 #include <iostream>
 #include <string>
@@ -22,6 +23,25 @@ int slotMachineGame(int balance) {
     return slotMachine.getBalance();
 }
 
+int CrapsGame(int balance) {
+    Craps craps(balance);
+    craps.init();
+    char playAgain;
+    do {
+        craps.play();
+        if (craps.getBalance() > 0) {
+            std::cout << "Play again? (y/n) ";
+            std::cin >> playAgain;
+            std::cin.ignore();
+            std::cout << std::endl;
+        } else {
+            break;
+        }
+    } while (playAgain == 'y' || playAgain == 'Y');
+    std::cout << "Thank you!" << std::endl;
+    return craps.getBalance();
+}
+
 int main() {
     int userBalance = 300;
 
@@ -29,7 +49,7 @@ int main() {
     std::cout << "\nWelcome to our casino!\n" << std::endl;
     std::cout << "Here is the list of our games:" << std::endl;
     std::cout << "1: Slot Machine" << std::endl;
-    std::cout << "2: work in progress" << std::endl;
+    std::cout << "2: Craps" << std::endl;
     std::cout << "3: work in progress" << std::endl;
     std::cout << "\nYour balance: " << userBalance << std::endl;
     std::cout << "\nWhat game would you like to play?" << std::endl;
@@ -37,6 +57,8 @@ int main() {
     switch (std::stoi(gameChoice)) {
         case 1:
             userBalance = slotMachineGame(userBalance);
+        case 2:
+            userBalance = CrapsGame(userBalance);
     }
 
     return userBalance;
