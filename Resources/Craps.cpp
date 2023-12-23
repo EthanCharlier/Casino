@@ -45,11 +45,11 @@ int Craps::getBet() {
     i++;
     std::cout << i << ": 1" << std::endl;
     i++;
-    if (balance >=10) {
+    if (balance >= 10) {
         std::cout <<  i << ": 10" << std::endl;
         i++;
     }
-    if (balance >=100) {
+    if (balance >= 100) {
         std::cout <<  i << ": 100" << std::endl;
         i++;
     }
