@@ -22,6 +22,7 @@ private:
     std::map<std::string, int> addBet(std::map<std::string, std::pair<std::string, bool>> betChoice, std::map<std::string, int> bet, int betAddValue);
     void displayBet(std::map<std::string, int> bet);
     std::string spin();
+    void displaySpin(std::map<std::string, std::pair<std::string, bool>> betChoice, std::string result);
     std::map<std::string, std::pair<std::string, bool>> makeResult(std::map<std::string, std::pair<std::string, bool>> betChoice, std::string result);
     int calcResult(std::map<std::string, std::pair<std::string, bool>> betResult, std::map<std::string, int> bet);
 };

@@ -5,8 +5,6 @@
 #include "../headers/Roulette.h"
 
 #include <iostream>
-#include <cstdlib>
-#include <ctime>
 #include <map>
 #include <string>
 #include <random>
@@ -29,7 +27,12 @@ void Roulette::play() {
     std::map<std::string, int> bet = getBet(betChoice);
     displayBet(bet);
     std::string result = spin();
+    displaySpin(betChoice, result);
     std::map<std::string, std::pair<std::string, bool>>  betResult = makeResult(betChoice, result);
+    calcResult(betResult, bet);
+
+    std::cout << "Your balance: " << balance << std::endl;
+    std::cout << "----------" << std::endl;
 }
 
 std::map<std::string, std::pair<std::string, bool>> Roulette::build() {
@@ -156,6 +159,25 @@ std::string Roulette::spin() {
     return randomNumStr;
 }
 
+void Roulette::displaySpin(std::map<std::string, std::pair<std::string, bool>> betChoice, std::string result) {
+    if (result.length() > 1) {
+        if (betChoice[result].first == "RED") {
+            std::cout << "┌───────┐\n" << "│ " << result << " 🔴" << " |\n" << "└───────┘" << std::endl;
+        } else {
+            std::cout << "┌───────┐\n" << "│ " << result << " ⚫" << " |\n" << "└───────┘" << std::endl;
+        }
+    } else {
+        if (betChoice[result].first == "RED") {
+            std::cout << "┌──────┐\n" << "│ " << result << " 🔴" << " |\n" << "└──────┘" << std::endl;
+        } else if (betChoice[result].first == "BLACK"){
+            std::cout << "┌──────┐\n" << "│ " << result << " ⚫" << " |\n" << "└──────┘" << std::endl;
+        } else {
+            std::cout << "┌──────┐\n" << "│ " << result << " ❇️" << " |\n" << "└──────┘" << std::endl;
+        }
+    }
+    std::cout << "----------" << std::endl;
+}
+
 std::map<std::string, std::pair<std::string, bool>> Roulette::makeResult(std::map<std::string, std::pair<std::string, bool>> betChoice, std::string result) {
     if (std::stoi(result) >= 1 && std::stoi(result) <= 18) {
         betChoice["1to18"].second = true;
@@ -177,9 +199,9 @@ std::map<std::string, std::pair<std::string, bool>> Roulette::makeResult(std::ma
     } else {
         betChoice["ODD"].second = true;
     }
-    if (betChoice["EVEN"].first == "RED") {
+    if (betChoice[result].first == "RED") {
         betChoice["RED"].second = true;
-    } else if (betChoice["EVEN"].first == "BLACK") {
+    } else if (betChoice[result].first == "BLACK") {
         betChoice["BLACK"].second = true;
     }
     betChoice[result].second = true;
@@ -187,5 +209,10 @@ std::map<std::string, std::pair<std::string, bool>> Roulette::makeResult(std::ma
 }
 
 int Roulette::calcResult(std::map<std::string, std::pair<std::string, bool>> betResult, std::map<std::string, int> bet) {
-
+    for (const auto& pair : bet) {
+        if (betResult[pair.first].second) {
+            balance += pair.second * 2;
+        }
+    }
+    return balance;
 }

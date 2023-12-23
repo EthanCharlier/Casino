@@ -65,23 +65,35 @@ int rouletteGame(int balance) {
 int main() {
     int userBalance = 300;
 
-    std::string gameChoice;
-    std::cout << "\nWelcome to our casino!\n" << std::endl;
-    std::cout << "Here is the list of our games:" << std::endl;
-    std::cout << "1: Slot Machine" << std::endl;
-    std::cout << "2: Craps" << std::endl;
-    std::cout << "3: Roulette" << std::endl;
-    std::cout << "\nYour balance: " << userBalance << std::endl;
-    std::cout << "\nWhat game would you like to play?" << std::endl;
-    std::cin >> gameChoice;
-    switch (std::stoi(gameChoice)) {
-        case 1:
-            userBalance = slotMachineGame(userBalance);
-        case 2:
-            userBalance = crapsGame(userBalance);
-        case 3:
-            userBalance = rouletteGame(userBalance);
-    }
+    bool stop = false;
 
+    do {
+        if (userBalance == 0) {
+            break;
+        }
+        std::string gameChoice;
+        std::cout << "\nWelcome to our casino!\n" << std::endl;
+        std::cout << "Here is the list of our games:" << std::endl;
+        std::cout << "1: Slot Machine" << std::endl;
+        std::cout << "2: Craps" << std::endl;
+        std::cout << "3: Roulette" << std::endl;
+        std::cout << "\nYour balance: " << userBalance << std::endl;
+        std::cout << "\nWhat game would you like to play?" << std::endl;
+        std::cin >> gameChoice;
+        switch (std::stoi(gameChoice)) {
+            case 1:
+                userBalance = slotMachineGame(userBalance);
+                break;
+            case 2:
+                userBalance = crapsGame(userBalance);
+                break;
+            case 3:
+                userBalance = rouletteGame(userBalance);
+                break;
+            default:
+                stop = true;
+                break;
+        }
+    } while (!stop);
     return userBalance;
 }
