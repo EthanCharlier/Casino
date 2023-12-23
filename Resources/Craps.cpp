@@ -89,7 +89,7 @@ void Craps::displayRoll(int newResult, int point) {
     } else if (newResult == point) {
         std::cout << " ✅ "<< newResult << std::endl;
     } else {
-        std::cout << " ↪️ "<< newResult << std::endl;
+        std::cout << " 🔀 "<< newResult << std::endl;
     }
 }
 
@@ -101,7 +101,7 @@ int Craps::calcResult(int dices, int bet) {
         std::cout << "❌ "<< dices << std::endl;
         return bet * 0;
     } else {
-        std::cout << "▶️ "<< dices << std::endl;
+        std::cout << "➡️ "<< dices << std::endl;
         int point = dices;
         while (true) {
             int newResult = rollDices();
