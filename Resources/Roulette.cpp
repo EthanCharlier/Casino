@@ -8,11 +8,67 @@
 #include <map>
 #include <string>
 #include <random>
+#include <iomanip>
+
+#define RESET   "\033[0m"
+#define RED     "\033[31m"
+#define GREEN   "\033[32m"
+#define YELLOW  "\033[33m"
+#define CYAN    "\033[36m"
+#define WHITE   "\033[37m"
+#define MAGENTA "\033[35m"
 
 Roulette::Roulette(int initialBalance) : balance(initialBalance){}
 
 void Roulette::init() {
     std::cout << "Welcome to the roulette game!" << std::endl;
+}
+
+void Roulette::test() {
+    std::cout << "" << std::endl;
+    std::cout << WHITE << "+-------+-----+-----+-----+------+------+------+------+------+------+------+------+------+----------+" << RESET << std::endl;
+    std::cout << WHITE << "|       |     |     |     |      |      |      |      |      |      |      |      |      |          |" << RESET << std::endl;
+
+    std::cout << WHITE << "|       | " << RED << " 3 " << WHITE << " | " << RESET << " 6 " << WHITE << " | " << RED << " 9 " << WHITE << " | " << RED <<
+    " 12 " << WHITE << " | " << RESET << " 15 " << WHITE " | " << RED << " 18 " << WHITE << " | " << RED << " 21 " << WHITE << " | " << RESET <<
+    " 24 " << WHITE << " | " << RED << " 27 " << WHITE << " | " << RED << " 30 " << WHITE << " | " << RESET << " 33 " << WHITE << " | " << RED <<
+    " 36 " << WHITE << " | " << YELLOW << " 2 to 1 " << WHITE << " |" << RESET << std::endl;
+
+    std::cout << WHITE << "|       |     |     |     |      |      |      |      |      |      |      |      |      |          |" << RESET << std::endl;
+    std::cout << WHITE << "|       +-----+-----+-----+-----+-------+------+------+------+------+------+------+------+----------+" << RESET << std::endl;
+    std::cout << WHITE << "|       |     |     |     |      |      |      |      |      |      |      |      |      |          |" << RESET << std::endl;
+
+    std::cout << WHITE << "|  " << GREEN << " 0 " << WHITE << "  | " << RESET " 2 " << WHITE << " | " << RED << " 5 " << WHITE << " | " << RESET <<
+    " 8 " << WHITE << " | " << RESET << " 11 " << WHITE << " | " << RED << " 14 " << WHITE << " | " << RESET << " 17 " << WHITE << " | " << RESET <<
+    " 20 " << WHITE << " | " << RED << " 23 " << WHITE << " | " << RESET << " 26 " << WHITE << " | " << RESET << " 29 " << WHITE << " | " << RED <<
+    " 32 " << WHITE << " | " << RESET << " 35 " << WHITE << " | " << YELLOW << " 2 to 1 " << WHITE << " |" << RESET << std::endl;
+
+    std::cout << WHITE << "|       |     |     |     |      |      |      |      |      |      |      |      |      |          |" << RESET << std::endl;
+    std::cout << WHITE << "|       +-----+-----+-----+-----+-------+------+------+------+------+------+------+------+----------+" << RESET << std::endl;
+    std::cout << WHITE << "|       |     |     |     |      |      |      |      |      |      |      |      |      |          |" << RESET << std::endl;
+
+    std::cout << WHITE << "|       | " << RED << " 1 " << WHITE << " | " << RESET << " 4 " << WHITE << " | " << RED << " 7 " << WHITE << " | " << RESET <<
+    " 10 " << WHITE << " | " << RESET << " 13 " << WHITE << " | " << RED << " 16 " << WHITE << " | " << RED << " 19 " << WHITE << " | " << RESET <<
+    " 22 " << WHITE << " | " << RED << " 25 " << WHITE << " | " << RESET << " 28 " << WHITE << " | " << RESET << " 31 " << WHITE << " | " << RED <<
+    " 34 " << WHITE << " | " << YELLOW << " 2 to 1 " << WHITE << " |" << RESET << std::endl;
+
+    std::cout << WHITE << "|       |     |     |     |      |      |      |      |      |      |      |      |      |          |" << RESET << std::endl;
+    std::cout << WHITE << "+-------+-----+-----+-----+------+------+------+------+------+------+------+------+------+----------+" << RESET << std::endl;
+    std::cout << WHITE << "        |                        |                           |                           |" << RESET << std::endl;
+
+    std::cout << WHITE << "        |        " << YELLOW << " 1st 12 " << WHITE << "        |          " << YELLOW << " 2nd 12 " << WHITE <<
+    "         |          " << YELLOW << " 3rd 12 " << WHITE << "         |" << RESET << std::endl;
+
+    std::cout << WHITE << "        |                        |                           |                           |" << RESET << std::endl;
+    std::cout << WHITE << "        +-----------+------------+-------------+-------------+-------------+-------------+" << RESET << std::endl;
+    std::cout << WHITE << "        |           |            |             |             |             |             |" << RESET << std::endl;
+
+    std::cout << WHITE << "        | " << YELLOW << " 1 to 18 " << WHITE << " |   " << CYAN << " EVEN " << WHITE << "   |    " << RED << " RED " <<
+    WHITE << "    | " << RESET << "   BLACK   " << WHITE << " |    " << CYAN << " ODD " << WHITE << "    |  " << YELLOW << " 19 to 36 " << WHITE <<
+    " |" << RESET << std::endl;
+
+    std::cout << WHITE << "        |           |            |             |             |             |             |" << RESET << std::endl;
+    std::cout << WHITE << "        +-----------+------------+-------------+-------------+-------------+-------------+\n" << RESET << std::endl;
 }
 
 int Roulette::getBalance() {
@@ -23,6 +79,7 @@ void Roulette::play() {
     if (balance <= 0) {
         return;
     }
+    test();
     std::map<std::string, std::pair<std::string, bool>>  betChoice = build();
     std::map<std::string, int> bet = getBet(betChoice);
     displayBet(bet);
@@ -61,36 +118,85 @@ std::map<std::string, int> Roulette::getBet(std::map<std::string, std::pair<std:
     std::map<std::string, int> bet;
     do {
         std::string betValueChoice;
-        int i = 0;
-        std::cout << "----------" << std::endl;
-        std::cout << "Your balance: " << balance << std::endl;
-        std::cout << "----------" << std::endl;
-        std::cout <<  i << ": Stop" << std::endl;
-        i++;
-        std::cout <<  i << ": All-In" << std::endl;
-        i++;
-        std::cout << i << ": 1" << std::endl;
-        i++;
-        if (balance >= 5) {
-            std::cout <<  i << ": 5" << std::endl;
-            i++;
-        }
-        if (balance >= 10) {
-            std::cout <<  i << ": 10" << std::endl;
-            i++;
-        }
-        if (balance >= 25) {
-            std::cout <<  i << ": 25" << std::endl;
-            i++;
-        }
-        if (balance >= 50) {
-            std::cout <<  i << ": 50" << std::endl;
-            i++;
-        }
+        std::cout << "\t\t\t\t\t\t\t\t  +-------------------------+" << std::endl;
+        std::cout << "\t\t\t\t\t\t\t\t  | YOUR BALANCE : " << RED << std::setw(8) << std::right << balance << RESET << " |" << std::endl;
+        std::cout << "\t\t\t\t\t\t\t\t  +-------------------------+\n" << std::endl;
+
+        std::cout << "\t\t\t\t\t\t +-------- " << "0" << " --------+ " <<
+                  "  +-------- " << "1" << " --------+" << std::endl;
+        std::cout << "\t\t\t\t\t\t |     " << CYAN << " S T O P " << RESET << "     | " << "  |     " << YELLOW << " ALL  IN " << RESET << "     |" << std::endl;
+        std::cout << "\t\t\t\t\t\t +-------- " << "0" << " --------+ " <<
+                  "  +-------- " << "1" << " --------+" << std::endl;
+
         if (balance >= 100) {
-            std::cout <<  i << ": 100" << std::endl;
-            i++;
+            std::cout << " +---- " << MAGENTA << "2" << RESET << " ----+ " <<
+                      "  +---- " << MAGENTA << "3" << RESET << " ----+ " <<
+                      "  +---- " << MAGENTA << "4" << RESET << " ----+ " <<
+                      "  +---- " << MAGENTA << "5" << RESET << " ----+ " <<
+                      "  +---- " << MAGENTA << "6" << RESET << " ----+ " <<
+                      "  +---- " << MAGENTA << "7" << RESET << " ----+ " << std::endl;
+            std::cout << " |           |   |           |   |           |   |           |   |           |   |           |" << std::endl;
+            std::cout << " |    " << RED << " 1 " << RESET << "    |   |    " << RED << " 5 " << RESET << "    |   |   " << RED << " 1 0 " << RESET << "   |   |   " << RED << " 2 5 " << RESET << "   |   |   " << RED << " 5 0 " << RESET << "   |   |  " << RED << " 1 0 0 " << RESET << "  |" << std::endl;
+            std::cout << " |           |   |           |   |           |   |           |   |           |   |           |" << std::endl;
+            std::cout << " +---- " << MAGENTA << "2" << RESET << " ----+ " <<
+                      "  +---- " << MAGENTA << "3" << RESET << " ----+ " <<
+                      "  +---- " << MAGENTA << "4" << RESET << " ----+ " <<
+                      "  +---- " << MAGENTA << "5" << RESET << " ----+ " <<
+                      "  +---- " << MAGENTA << "6" << RESET << " ----+ " <<
+                      "  +---- " << MAGENTA << "7" << RESET << " ----+ " << std::endl;
+        } else if (balance >= 50) {
+            std::cout << "\t\t +---- " << MAGENTA << "2" << RESET << " ----+ " <<
+                      "  +---- " << MAGENTA << "3" << RESET << " ----+ " <<
+                      "  +---- " << MAGENTA << "4" << RESET << " ----+ " <<
+                      "  +---- " << MAGENTA << "5" << RESET << " ----+ " <<
+                      "  +---- " << MAGENTA << "6" << RESET << " ----+ " << std::endl;
+            std::cout << "\t\t |           |   |           |   |           |   |           |   |           |" << std::endl;
+            std::cout << "\t\t |    " << RED << " 1 " << RESET << "    |   |    " << RED << " 5 " << RESET << "    |   |   " << RED << " 1 0 " << RESET << "   |   |   " << RED << " 2 5 " << RESET << "   |   |   " << RED << " 5 0 " << RESET << "   |"<< std::endl;
+            std::cout << "\t\t |           |   |           |   |           |   |           |   |           |" << std::endl;
+            std::cout << "\t\t +---- " << MAGENTA << "2" << RESET << " ----+ " <<
+                      "  +---- " << MAGENTA << "3" << RESET << " ----+ " <<
+                      "  +---- " << MAGENTA << "4" << RESET << " ----+ " <<
+                      "  +---- " << MAGENTA << "5" << RESET << " ----+ " <<
+                      "  +---- " << MAGENTA << "6" << RESET << " ----+ " << std::endl;
+        } else if (balance >= 25) {
+            std::cout << "\t\t\t\t +---- " << MAGENTA << "2" << RESET << " ----+ " <<
+                      "  +---- " << MAGENTA << "3" << RESET << " ----+ " <<
+                      "  +---- " << MAGENTA << "4" << RESET << " ----+ " <<
+                      "  +---- " << MAGENTA << "5" << RESET << " ----+ " << std::endl;
+            std::cout << "\t\t\t\t |           |   |           |   |           |   |           |" << std::endl;
+            std::cout << "\t\t\t\t |    " << RED << " 1 " << RESET << "    |   |    " << RED << " 5 " << RESET << "    |   |   " << RED << " 1 0 " << RESET << "   |   |   " << RED << " 2 5 " << RESET << "   |"<< std::endl;
+            std::cout << "\t\t\t\t |           |   |           |   |           |   |           |" << std::endl;
+            std::cout << "\t\t\t\t +---- " << MAGENTA << "2" << RESET << " ----+ " <<
+                      "  +---- " << MAGENTA << "3" << RESET << " ----+ " <<
+                      "  +---- " << MAGENTA << "4" << RESET << " ----+ " <<
+                      "  +---- " << MAGENTA << "5" << RESET << " ----+ " << std::endl;
+        } else if (balance >= 10) {
+            std::cout << "\t\t\t\t\t\t +---- " << MAGENTA << "2" << RESET << " ----+ " <<
+                      "  +---- " << MAGENTA << "3" << RESET << " ----+ " <<
+                      "  +---- " << MAGENTA << "4" << RESET << " ----+ " << std::endl;
+            std::cout << "\t\t\t\t\t\t |           |   |           |   |           |" << std::endl;
+            std::cout << "\t\t\t\t\t\t |    " << RED << " 1 " << RESET << "    |   |    " << RED << " 5 " << RESET << "    |   |   " << RED << " 1 0 " << RESET << "   |"<< std::endl;
+            std::cout << "\t\t\t\t\t\t |           |   |           |   |           |" << std::endl;
+            std::cout << "\t\t\t\t\t\t +---- " << MAGENTA << "2" << RESET << " ----+ " <<
+                      "  +---- " << MAGENTA << "3" << RESET << " ----+ " <<
+                      "  +---- " << MAGENTA << "4" << RESET << " ----+ " << std::endl;
+        } else if (balance >= 5) {
+            std::cout << "\t\t\t\t\t\t\t\t +---- " << MAGENTA << "2" << RESET << " ----+ " <<
+                      "  +---- " << MAGENTA << "3" << RESET << " ----+ " << std::endl;
+            std::cout << "\t\t\t\t\t\t\t\t |           |   |           |" << std::endl;
+            std::cout << "\t\t\t\t\t\t\t\t |    " << RED << " 1 " << RESET << "    |   |    " << RED << " 5 " << RESET << "    |"<< std::endl;
+            std::cout << "\t\t\t\t\t\t\t\t |           |   |           |" << std::endl;
+            std::cout << "\t\t\t\t\t\t\t\t +---- " << MAGENTA << "2" << RESET << " ----+ " <<
+                      "  +---- " << MAGENTA << "3" << RESET << " ----+ " << std::endl;
+        } else {
+            std::cout << "\t\t\t\t\t\t\t\t\t\t +---- " << MAGENTA << "2" << RESET << " ----+ " << std::endl;
+            std::cout << "\t\t\t\t\t\t\t\t\t\t |           |" << std::endl;
+            std::cout << "\t\t\t\t\t\t\t\t\t\t |    " << RED << " 1 " << RESET << "    |"<< std::endl;
+            std::cout << "\t\t\t\t\t\t\t\t\t\t |           |" << std::endl;
+            std::cout << "\t\t\t\t\t\t\t\t\t\t +---- " << MAGENTA << "2" << RESET << " ----+ " << std::endl;
         }
+
+
         std::cout << "----------" << std::endl;
         std::cout << "Which options do you choose?" << std::endl;
         std::cin >> betValueChoice;

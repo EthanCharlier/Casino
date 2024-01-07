@@ -63,7 +63,7 @@ int rouletteGame(int balance) {
 }
 
 int main() {
-    int userBalance = 300;
+    int userBalance = 99;
 
     bool stop = false;
 

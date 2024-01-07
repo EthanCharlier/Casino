@@ -15,6 +15,7 @@ public:
     void play();
     int getBalance();
     std::map<std::string, std::pair<std::string, bool>> build();
+    void test();
 
 private:
     int balance;
