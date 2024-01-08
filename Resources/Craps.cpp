@@ -19,11 +19,27 @@ const std::string MAGENTA = "\033[35m";
 
 Craps::Craps(int initialBalance) : balance(initialBalance) {}
 
-void Craps::init() {
+bool Craps::init() {
     std::cout << "\t\t\t\t  +----------------------------+----------------------------+" << std::endl;
     std::cout << "\t\t\t\t  |   " << CYAN << " W E L C O M E   T O   T H E   C R A P S   G A M E " << RESET << "   |" << std::endl;
     std::cout << "\t\t\t\t  +----------------------------+----------------------------+" << std::endl;
     std::srand(static_cast<unsigned int>(std::time(nullptr)));
+
+    std::cout << "\n"
+                 "Craps is a dynamic dice game played with two six-sided dice. Participants bet on the outcome of the roll,\n"
+                 "with popular options like the \"Pass Line\" and \"Don't Pass Line.\" A roll of 7 or 11 is a win for \"Pass Line\n"
+                 ",\" while 2, 3, or 12 results in a loss. \"Don't Pass Line\" bets win on 2 or 3 and lose on 7 or 11. The game \n"
+                 "offers various betting choices, creating a thrilling and diverse casino experience.\n" << std::endl;
+
+    std::string userChoice;
+    std::cout << "Ready to play? (y/n)" << std::endl;
+    std::cin >> userChoice;
+
+    if (userChoice == "y" || userChoice == "Y") {
+        return true;
+    } else {
+        return false;
+    }
 }
 
 int Craps::getBalance() {

@@ -11,7 +11,7 @@
 class SlotMachine {
 public:
     SlotMachine(int initialBalance);
-    void init();
+    bool init();
     void play();
     int getBalance();
 

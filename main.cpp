@@ -14,7 +14,9 @@ const std::string CYAN = "\033[36m";
 
 int slotMachineGame(int balance) {
     SlotMachine slotMachine(balance);
-    slotMachine.init();
+    if (!slotMachine.init()) {
+        return balance;
+    }
     char playAgain;
     do {
         slotMachine.play();
@@ -33,7 +35,9 @@ int slotMachineGame(int balance) {
 
 int crapsGame(int balance) {
     Craps craps(balance);
-    craps.init();
+    if (!craps.init()) {
+        return balance;
+    }
     char playAgain;
     do {
         craps.play();
@@ -52,7 +56,9 @@ int crapsGame(int balance) {
 
 int rouletteGame(int balance) {
     Roulette roulette(balance);
-    roulette.init();
+    if (!roulette.init()) {
+        return balance;
+    }
     char playAgain;
     do {
         roulette.play();

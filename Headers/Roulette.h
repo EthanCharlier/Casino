@@ -11,7 +11,7 @@
 class Roulette {
 public:
     Roulette(int initialBalance);
-    void init();
+    bool init();
     void play();
     int getBalance();
     std::map<std::string, std::pair<std::string, bool>> build();

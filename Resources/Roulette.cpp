@@ -20,10 +20,25 @@ const std::string MAGENTA = "\033[35m";
 
 Roulette::Roulette(int initialBalance) : balance(initialBalance){}
 
-void Roulette::init() {
+bool Roulette::init() {
     std::cout << "\t\t\t\t\t +---------------------------------------------------+" << std::endl;
     std::cout << "\t\t\t\t\t |  " << CYAN << " W E L C O M E   T O   T H E   R O U L E T T E " << RESET << "  |" << std::endl;
     std::cout << "\t\t\t\t\t +---------------------------------------------------+" << std::endl;
+
+    std::cout << "\n"
+                 "Roulette, a casino classic, involves betting on where a spinning ball will land on a numbered wheel. \n"
+                 "Players can choose specific numbers or broader options like red or black. It's a game of anticipation, \n"
+                 "with straightforward rules and diverse betting choices, making roulette a timeless and thrilling casino experience.\n" << std::endl;
+
+    std::string userChoice;
+    std::cout << "Ready to play? (y/n)" << std::endl;
+    std::cin >> userChoice;
+
+    if (userChoice == "y" || userChoice == "Y") {
+        return true;
+    } else {
+        return false;
+    }
 }
 
 std::string Roulette::showGame(std::map<std::string, int> bets) {
