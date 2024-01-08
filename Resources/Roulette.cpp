@@ -10,13 +10,13 @@
 #include <random>
 #include <iomanip>
 
-#define RESET   "\033[0m"
-#define RED     "\033[31m"
-#define GREEN   "\033[32m"
-#define YELLOW  "\033[33m"
-#define CYAN    "\033[36m"
-#define WHITE   "\033[37m"
-#define MAGENTA "\033[35m"
+const std::string RESET = "\033[0m";
+const std::string WHITE = "\033[37m";
+const std::string RED = "\033[31m";
+const std::string YELLOW = "\033[33m";
+const std::string GREEN = "\033[32m";
+const std::string CYAN = "\033[36m";
+const std::string MAGENTA = "\033[35m";
 
 Roulette::Roulette(int initialBalance) : balance(initialBalance){}
 
@@ -24,51 +24,116 @@ void Roulette::init() {
     std::cout << "Welcome to the roulette game!" << std::endl;
 }
 
-void Roulette::test() {
-    std::cout << "" << std::endl;
-    std::cout << WHITE << "+-------+-----+-----+-----+------+------+------+------+------+------+------+------+------+----------+" << RESET << std::endl;
-    std::cout << WHITE << "|       |     |     |     |      |      |      |      |      |      |      |      |      |          |" << RESET << std::endl;
+std::string Roulette::showGame(std::map<std::string, int> bets) {
 
-    std::cout << WHITE << "|       | " << RED << " 3 " << WHITE << " | " << RESET << " 6 " << WHITE << " | " << RED << " 9 " << WHITE << " | " << RED <<
-    " 12 " << WHITE << " | " << RESET << " 15 " << WHITE " | " << RED << " 18 " << WHITE << " | " << RED << " 21 " << WHITE << " | " << RESET <<
-    " 24 " << WHITE << " | " << RED << " 27 " << WHITE << " | " << RED << " 30 " << WHITE << " | " << RESET << " 33 " << WHITE << " | " << RED <<
-    " 36 " << WHITE << " | " << YELLOW << " 2 to 1 " << WHITE << " |" << RESET << std::endl;
+    game = "\n" + WHITE + "+-------+-----+-----+-----+------+------+------+------+------+------+------+------+------+--------+" + RESET + "\n"
+            + WHITE + "|       |     |     |     |      |      |      |      |      |      |      |      |      |        |" + RESET + "\n"
 
-    std::cout << WHITE << "|       |     |     |     |      |      |      |      |      |      |      |      |      |          |" << RESET << std::endl;
-    std::cout << WHITE << "|       +-----+-----+-----+-----+-------+------+------+------+------+------+------+------+----------+" << RESET << std::endl;
-    std::cout << WHITE << "|       |     |     |     |      |      |      |      |      |      |      |      |      |          |" << RESET << std::endl;
+            + WHITE + "|       | " + RED + " 3 " + WHITE + " | " + RESET + " 6 " + WHITE + " | " + RED + " 9 " + WHITE + " | " + RED
+            + " 12 " + WHITE + " | " + RESET + " 15 " + WHITE + " | " + RED + " 18 " + WHITE + " | " + RED + " 21 " + WHITE + " | " + RESET
+            + " 24 " + WHITE + " | " + RED + " 27 " + WHITE + " | " + RED + " 30 " + WHITE + " | " + RESET + " 33 " + WHITE + " | " + RED
+            + " 36 " + WHITE + " | " + YELLOW + " 2to1 " + WHITE + " |" + RESET + "\n"
 
-    std::cout << WHITE << "|  " << GREEN << " 0 " << WHITE << "  | " << RESET " 2 " << WHITE << " | " << RED << " 5 " << WHITE << " | " << RESET <<
-    " 8 " << WHITE << " | " << RESET << " 11 " << WHITE << " | " << RED << " 14 " << WHITE << " | " << RESET << " 17 " << WHITE << " | " << RESET <<
-    " 20 " << WHITE << " | " << RED << " 23 " << WHITE << " | " << RESET << " 26 " << WHITE << " | " << RESET << " 29 " << WHITE << " | " << RED <<
-    " 32 " << WHITE << " | " << RESET << " 35 " << WHITE << " | " << YELLOW << " 2 to 1 " << WHITE << " |" << RESET << std::endl;
+            + WHITE + "|       |     |     |     |      |      |      |      |      |      |      |      |      |        |" + RESET + "\n"
+            + WHITE + "|       +-----+-----+-----+-----+-------+------+------+------+------+------+------+------+--------+" + RESET + "\n"
+            + WHITE + "|       |     |     |     |      |      |      |      |      |      |      |      |      |        |" + RESET + "\n"
 
-    std::cout << WHITE << "|       |     |     |     |      |      |      |      |      |      |      |      |      |          |" << RESET << std::endl;
-    std::cout << WHITE << "|       +-----+-----+-----+-----+-------+------+------+------+------+------+------+------+----------+" << RESET << std::endl;
-    std::cout << WHITE << "|       |     |     |     |      |      |      |      |      |      |      |      |      |          |" << RESET << std::endl;
+            + WHITE + "|  " + GREEN + " 0 " + WHITE + "  | " + RESET + " 2 " + WHITE + " | " + RED + " 5 " + WHITE + " | " + RESET
+            + " 8 " + WHITE + " | " + RESET + " 11 " + WHITE + " | " + RED + " 14 " + WHITE + " | " + RESET + " 17 " + WHITE + " | " + RESET
+            + " 20 " + WHITE + " | " + RED + " 23 " + WHITE + " | " + RESET + " 26 " + WHITE + " | " + RESET + " 29 " + WHITE + " | " + RED
+            + " 32 " + WHITE + " | " + RESET + " 35 " + WHITE + " | " + YELLOW + " 2to1 " + WHITE + " |" + RESET + "\n"
 
-    std::cout << WHITE << "|       | " << RED << " 1 " << WHITE << " | " << RESET << " 4 " << WHITE << " | " << RED << " 7 " << WHITE << " | " << RESET <<
-    " 10 " << WHITE << " | " << RESET << " 13 " << WHITE << " | " << RED << " 16 " << WHITE << " | " << RED << " 19 " << WHITE << " | " << RESET <<
-    " 22 " << WHITE << " | " << RED << " 25 " << WHITE << " | " << RESET << " 28 " << WHITE << " | " << RESET << " 31 " << WHITE << " | " << RED <<
-    " 34 " << WHITE << " | " << YELLOW << " 2 to 1 " << WHITE << " |" << RESET << std::endl;
+            + WHITE + "|       |     |     |     |      |      |      |      |      |      |      |      |      |        |" + RESET + "\n"
+            + WHITE + "|       +-----+-----+-----+-----+-------+------+------+------+------+------+------+------+--------+" + RESET + "\n"
+            + WHITE + "|       |     |     |     |      |      |      |      |      |      |      |      |      |        |" + RESET + "\n"
 
-    std::cout << WHITE << "|       |     |     |     |      |      |      |      |      |      |      |      |      |          |" << RESET << std::endl;
-    std::cout << WHITE << "+-------+-----+-----+-----+------+------+------+------+------+------+------+------+------+----------+" << RESET << std::endl;
-    std::cout << WHITE << "        |                        |                           |                           |" << RESET << std::endl;
+            + WHITE + "|       | " + RED + " 1 " + WHITE + " | " + RESET + " 4 " + WHITE + " | " + RED + " 7 " + WHITE + " | " + RESET
+            + " 10 " + WHITE + " | " + RESET + " 13 " + WHITE + " | " + RED + " 16 " + WHITE + " | " + RED + " 19 " + WHITE + " | " + RESET
+            + " 22 " + WHITE + " | " + RED + " 25 " + WHITE + " | " + RESET + " 28 " + WHITE + " | " + RESET + " 31 " + WHITE + " | " + RED
+            + " 34 " + WHITE + " | " + YELLOW + " 2to1 " + WHITE + " |" + RESET + "\n"
 
-    std::cout << WHITE << "        |        " << YELLOW << " 1st 12 " << WHITE << "        |          " << YELLOW << " 2nd 12 " << WHITE <<
-    "         |          " << YELLOW << " 3rd 12 " << WHITE << "         |" << RESET << std::endl;
+            + WHITE + "|       |     |     |     |      |      |      |      |      |      |      |      |      |        |" + RESET + "\n"
+            + WHITE + "+-------+-----+-----+-----+------+------+------+------+------+------+------+------+------+--------+" + RESET + "\n"
+            + WHITE + "        |                        |                           |                           |" + RESET + "\n"
 
-    std::cout << WHITE << "        |                        |                           |                           |" << RESET << std::endl;
-    std::cout << WHITE << "        +-----------+------------+-------------+-------------+-------------+-------------+" << RESET << std::endl;
-    std::cout << WHITE << "        |           |            |             |             |             |             |" << RESET << std::endl;
+            + WHITE + "        |        " + YELLOW + " 1st12  " + WHITE + "        |          " + YELLOW + " 2nd12  " + WHITE
+            + "         |          " + YELLOW + " 3rd12  " + WHITE + "         |" + RESET + "\n"
 
-    std::cout << WHITE << "        | " << YELLOW << " 1 to 18 " << WHITE << " |   " << CYAN << " EVEN " << WHITE << "   |    " << RED << " RED " <<
-    WHITE << "    | " << RESET << "   BLACK   " << WHITE << " |    " << CYAN << " ODD " << WHITE << "    |  " << YELLOW << " 19 to 36 " << WHITE <<
-    " |" << RESET << std::endl;
+            + WHITE + "        |                        |                           |                           |" + RESET + "\n"
+            + WHITE + "        +-----------+------------+-------------+-------------+-------------+-------------+" + RESET + "\n"
+            + WHITE + "        |           |            |             |             |             |             |" + RESET + "\n"
 
-    std::cout << WHITE << "        |           |            |             |             |             |             |" << RESET << std::endl;
-    std::cout << WHITE << "        +-----------+------------+-------------+-------------+-------------+-------------+\n" << RESET << std::endl;
+            + WHITE + "        | " + YELLOW + "  1to18  " + WHITE + " |   " + CYAN + " EVEN " + WHITE + "   |    " + RED + " RED "
+            + WHITE + "    | " + RESET + "   BLACK   " + WHITE + " |    " + CYAN + " ODD " + WHITE + "    |  " + YELLOW + "  19to36  " + WHITE
+            + " |" + RESET + "\n"
+
+            + WHITE + "        |           |            |             |             |             |             |" + RESET + "\n"
+            + WHITE + "        +-----------+------------+-------------+-------------+-------------+-------------+" + RESET + "\n";
+
+    for (const auto& pair : bets) {
+        size_t found;
+        std::string replaceString;
+        int len = pair.first.length();
+        if (pair.second >= 100) {
+            found = game.find(" " + pair.first + " ");
+            if (len >= 6) {
+                replaceString = "  " + MAGENTA + std::to_string(pair.second) + WHITE + "   ";
+            } else if (len >= 5) {
+                replaceString = "  " + MAGENTA + std::to_string(pair.second) + WHITE + "  ";
+            } else if (len >= 4) {
+                replaceString = "  " + MAGENTA + std::to_string(pair.second) + WHITE + " ";
+            } else if (len >= 3) {
+                replaceString = " " + MAGENTA + std::to_string(pair.second) + WHITE + " ";
+            } else if (len >= 2) {
+                replaceString = MAGENTA + std::to_string(pair.second) + WHITE + " ";
+            } else {
+                replaceString = MAGENTA + std::to_string(pair.second) + WHITE;
+            }
+            len = len + 2;
+        } else if (pair.second >= 10) {
+            found = game.find(" " + pair.first + " ");
+            if (len >= 6) {
+                replaceString = "   " + MAGENTA + std::to_string(pair.second) + WHITE + "   ";
+            } else if (len >= 5) {
+                replaceString = "  " + MAGENTA + std::to_string(pair.second)[0];
+                replaceString = replaceString + " " + std::to_string(pair.second)[1];
+                replaceString = replaceString + WHITE + "  ";
+            } else if (len >= 4) {
+                replaceString = "  " + MAGENTA + std::to_string(pair.second) + WHITE + "  ";
+            } else if (len >= 3) {
+                replaceString = " " + MAGENTA + std::to_string(pair.second)[0];
+                replaceString = replaceString + " " + std::to_string(pair.second)[1];
+                replaceString = replaceString + WHITE + " ";
+            } else if (len >= 2) {
+                replaceString = " " + MAGENTA + std::to_string(pair.second) + WHITE + " ";
+            } else {
+                replaceString = MAGENTA + std::to_string(pair.second)[0];
+                replaceString = replaceString + " " + std::to_string(pair.second)[1];
+                replaceString = replaceString + WHITE;
+            }
+            len = len + 2;
+        } else {
+            found = game.find(" " + pair.first + " ") + 1;
+            if (len >= 6) {
+                replaceString = "  " + MAGENTA + std::to_string(pair.second) + WHITE + "   ";
+            } else if (len >= 5) {
+                replaceString = "  " + MAGENTA + std::to_string(pair.second) + WHITE + "  ";
+            } else if (len >= 4) {
+                replaceString = "  " + MAGENTA + std::to_string(pair.second) + WHITE + " ";
+            } else if (len >= 3) {
+                replaceString = " " + MAGENTA + std::to_string(pair.second) + WHITE + " ";
+            } else if (len >= 2) {
+                replaceString = MAGENTA + std::to_string(pair.second) + WHITE + " ";
+            } else {
+                replaceString = MAGENTA + std::to_string(pair.second) + WHITE;
+            }
+        }
+        if (found != std::string::npos) {
+            game.replace(found, len, replaceString);
+        }
+    }
+    std::cout << game << std::endl;
+    return game;
 }
 
 int Roulette::getBalance() {
@@ -79,17 +144,28 @@ void Roulette::play() {
     if (balance <= 0) {
         return;
     }
-    test();
+    int initialBalance = balance;
     std::map<std::string, std::pair<std::string, bool>>  betChoice = build();
     std::map<std::string, int> bet = getBet(betChoice);
-    displayBet(bet);
     std::string result = spin();
+    std::cout << game << std::endl;
     displaySpin(betChoice, result);
     std::map<std::string, std::pair<std::string, bool>>  betResult = makeResult(betChoice, result);
     calcResult(betResult, bet);
 
-    std::cout << "Your balance: " << balance << std::endl;
-    std::cout << "----------" << std::endl;
+    if (balance - initialBalance < 0) {
+        std::cout << "\n\t\t\t\t\t\t\t\t\t+---------------------+" << std::endl;
+        std::cout << "\t\t\t\t\t\t\t\t\t| YOUR LOST : " << RED << std::setw(7) << std::right << balance - initialBalance << RESET << " |" << std::endl;
+        std::cout << "\t\t\t\t\t\t\t\t\t+---------------------+\n" << std::endl;
+    } else if (balance - initialBalance > 0) {
+        std::cout << "\n\t\t\t\t\t\t\t\t\t+---------------------+" << std::endl;
+        std::cout << "\t\t\t\t\t\t\t\t\t| YOUR WIN : " << RED << std::setw(7) << std::right << balance - initialBalance << RESET << " |" << std::endl;
+        std::cout << "\t\t\t\t\t\t\t\t\t+---------------------+\n" << std::endl;
+    }
+
+    std::cout << "\t\t\t\t\t\t\t\t  +-------------------------+" << std::endl;
+    std::cout << "\t\t\t\t\t\t\t\t  | YOUR BALANCE : " << RED << std::setw(8) << std::right << balance << RESET << " |" << std::endl;
+    std::cout << "\t\t\t\t\t\t\t\t  +-------------------------+\n" << std::endl;
 }
 
 std::map<std::string, std::pair<std::string, bool>> Roulette::build() {
@@ -117,16 +193,17 @@ std::map<std::string, std::pair<std::string, bool>> Roulette::build() {
 std::map<std::string, int> Roulette::getBet(std::map<std::string, std::pair<std::string, bool>> betChoice) {
     std::map<std::string, int> bet;
     do {
+        game = showGame(bet);
         std::string betValueChoice;
         std::cout << "\t\t\t\t\t\t\t\t  +-------------------------+" << std::endl;
         std::cout << "\t\t\t\t\t\t\t\t  | YOUR BALANCE : " << RED << std::setw(8) << std::right << balance << RESET << " |" << std::endl;
         std::cout << "\t\t\t\t\t\t\t\t  +-------------------------+\n" << std::endl;
 
-        std::cout << "\t\t\t\t\t\t +-------- " << "0" << " --------+ " <<
-                  "  +-------- " << "1" << " --------+" << std::endl;
+        std::cout << "\t\t\t\t\t\t +-------- " << MAGENTA << "0" << RESET << " --------+ " <<
+                  "  +-------- " << MAGENTA << "1" << RESET << " --------+" << std::endl;
         std::cout << "\t\t\t\t\t\t |     " << CYAN << " S T O P " << RESET << "     | " << "  |     " << YELLOW << " ALL  IN " << RESET << "     |" << std::endl;
-        std::cout << "\t\t\t\t\t\t +-------- " << "0" << " --------+ " <<
-                  "  +-------- " << "1" << " --------+" << std::endl;
+        std::cout << "\t\t\t\t\t\t +-------- " << MAGENTA << "0" << RESET << " --------+ " <<
+                  "  +-------- " << MAGENTA << "1" << RESET << " --------+" << std::endl;
 
         if (balance >= 100) {
             std::cout << " +---- " << MAGENTA << "2" << RESET << " ----+ " <<
@@ -196,9 +273,7 @@ std::map<std::string, int> Roulette::getBet(std::map<std::string, std::pair<std:
             std::cout << "\t\t\t\t\t\t\t\t\t\t +---- " << MAGENTA << "2" << RESET << " ----+ " << std::endl;
         }
 
-
-        std::cout << "----------" << std::endl;
-        std::cout << "Which options do you choose?" << std::endl;
+        std::cout << "\nWhich options do you choose?" << std::endl;
         std::cin >> betValueChoice;
         if (betValueChoice == "1") {
             bet = addBet(betChoice, bet, balance);
@@ -217,13 +292,12 @@ std::map<std::string, int> Roulette::getBet(std::map<std::string, std::pair<std:
         } else {
             break;
         }
-    } while (balance > 100);
+    } while (balance > 0);
     return bet;
 }
 
 std::map<std::string, int> Roulette::addBet(std::map<std::string, std::pair<std::string, bool>> betChoice, std::map<std::string, int> bet, int betAddValue) {
     std::string betAddChoice;
-    std::cout << "----------" << std::endl;
     std::cout << "What do you want to add your bet to?" << std::endl;
     std::cin >> betAddChoice;
     if (betChoice.find(betAddChoice) != betChoice.end()) {
@@ -239,23 +313,6 @@ std::map<std::string, int> Roulette::addBet(std::map<std::string, std::pair<std:
     return bet;
 }
 
-void Roulette::displayBet(std::map<std::string, int> bet) {
-    std::cout << "----------" << std::endl;
-    std::cout << "Here is the list of your bets:" << std::endl;
-    for (const auto& pair : bet) {
-        if (pair.first == "RED") {
-            std::cout << "🔴 " << pair.second << std::endl;
-        } else if (pair.first == "BLACK"){
-            std::cout << "⚫ " << pair.second << std::endl;
-        } else if (pair.first == "0") {
-            std::cout << "❇️ " << pair.second << std::endl;
-        } else {
-            std::cout << pair.first << ": " << pair.second << std::endl;
-        }
-    }
-    std::cout << "----------" << std::endl;
-}
-
 std::string Roulette::spin() {
     std::random_device rd;
     std::mt19937 gen(rd());
@@ -266,22 +323,41 @@ std::string Roulette::spin() {
 }
 
 void Roulette::displaySpin(std::map<std::string, std::pair<std::string, bool>> betChoice, std::string result) {
-    if (result.length() > 1) {
+    if (result.length() >= 2) {
         if (betChoice[result].first == "RED") {
-            std::cout << "┌───────┐\n" << "│ " << result << " 🔴" << " |\n" << "└───────┘" << std::endl;
+            std::cout << WHITE << "\t\t\t\t\t\t\t\t\t\t+------+------+" << RESET << std::endl;
+            std::cout << WHITE << "\t\t\t\t\t\t\t\t\t\t|             |" << RESET << std::endl;
+            std::cout << WHITE << "\t\t\t\t\t\t\t\t\t\t|     " << RED << result[0] << " " << result[1] << WHITE << "     |" << RESET << std::endl;
+            std::cout << WHITE << "\t\t\t\t\t\t\t\t\t\t|             |" << RESET << std::endl;
+            std::cout << WHITE << "\t\t\t\t\t\t\t\t\t\t+------+------+" << RESET << std::endl;
         } else {
-            std::cout << "┌───────┐\n" << "│ " << result << " ⚫" << " |\n" << "└───────┘" << std::endl;
+            std::cout << WHITE << "\t\t\t\t\t\t\t\t\t\t+------+------+" << RESET << std::endl;
+            std::cout << WHITE << "\t\t\t\t\t\t\t\t\t\t|             |" << RESET << std::endl;
+            std::cout << WHITE << "\t\t\t\t\t\t\t\t\t\t|     " << RESET << result[0] << " " << result[1] << WHITE << "     |" << RESET << std::endl;
+            std::cout << WHITE << "\t\t\t\t\t\t\t\t\t\t|             |" << RESET << std::endl;
+            std::cout << WHITE << "\t\t\t\t\t\t\t\t\t\t+------+------+" << RESET << std::endl;
         }
     } else {
         if (betChoice[result].first == "RED") {
-            std::cout << "┌──────┐\n" << "│ " << result << " 🔴" << " |\n" << "└──────┘" << std::endl;
+            std::cout << WHITE << "\t\t\t\t\t\t\t\t\t\t+------+------+" << RESET << std::endl;
+            std::cout << WHITE << "\t\t\t\t\t\t\t\t\t\t|             |" << RESET << std::endl;
+            std::cout << WHITE << "\t\t\t\t\t\t\t\t\t\t|      " << RED << result << WHITE << "      |" << RESET << std::endl;
+            std::cout << WHITE << "\t\t\t\t\t\t\t\t\t\t|             |" << RESET << std::endl;
+            std::cout << WHITE << "\t\t\t\t\t\t\t\t\t\t+------+------+" << RESET << std::endl;
         } else if (betChoice[result].first == "BLACK"){
-            std::cout << "┌──────┐\n" << "│ " << result << " ⚫" << " |\n" << "└──────┘" << std::endl;
+            std::cout << WHITE << "\t\t\t\t\t\t\t\t\t\t+------+------+" << RESET << std::endl;
+            std::cout << WHITE << "\t\t\t\t\t\t\t\t\t\t|             |" << RESET << std::endl;
+            std::cout << WHITE << "\t\t\t\t\t\t\t\t\t\t|      " << WHITE << result << WHITE << "      |" << RESET << std::endl;
+            std::cout << WHITE << "\t\t\t\t\t\t\t\t\t\t|             |" << RESET << std::endl;
+            std::cout << WHITE << "\t\t\t\t\t\t\t\t\t\t+------+------+" << RESET << std::endl;
         } else {
-            std::cout << "┌──────┐\n" << "│ " << result << " ❇️" << " |\n" << "└──────┘" << std::endl;
+            std::cout << WHITE << "\t\t\t\t\t\t\t\t\t\t+------+------+" << RESET << std::endl;
+            std::cout << WHITE << "\t\t\t\t\t\t\t\t\t\t|             |" << RESET << std::endl;
+            std::cout << WHITE << "\t\t\t\t\t\t\t\t\t\t|      " << GREEN << result << WHITE << "      |" << RESET << std::endl;
+            std::cout << WHITE << "\t\t\t\t\t\t\t\t\t\t|             |" << RESET << std::endl;
+            std::cout << WHITE << "\t\t\t\t\t\t\t\t\t\t+------+------+" << RESET << std::endl;
         }
     }
-    std::cout << "----------" << std::endl;
 }
 
 std::map<std::string, std::pair<std::string, bool>> Roulette::makeResult(std::map<std::string, std::pair<std::string, bool>> betChoice, std::string result) {
