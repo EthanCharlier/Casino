@@ -169,7 +169,7 @@ int SlotMachine::getBet() {
 }
 
 void SlotMachine::spinReels(std::string reels[5]) {
-    const std::string symbols[] = {"🍀", "💲", "💵", "🍇", "🍋", "🍒", "🎲", "7"};
+    const std::string symbols[] = {"🍀", "💲", "💵", "🍇", "🍋", "🍒", "🎲", "🎱️"};
     srand(time(0));
     for (int i = 0; i < 5; ++i) {
         int randomIndex = rand() % (sizeof(symbols) / sizeof(symbols[0]));
