@@ -159,7 +159,7 @@ void Roulette::play() {
         std::cout << "\t\t\t\t\t\t\t\t\t+---------------------+\n" << std::endl;
     } else if (balance - initialBalance > 0) {
         std::cout << "\n\t\t\t\t\t\t\t\t\t+---------------------+" << std::endl;
-        std::cout << "\t\t\t\t\t\t\t\t\t| YOUR WIN : " << RED << std::setw(7) << std::right << balance - initialBalance << RESET << " |" << std::endl;
+        std::cout << "\t\t\t\t\t\t\t\t\t| YOUR WON : " << RED << std::setw(8) << std::right << balance - initialBalance << RESET << " |" << std::endl;
         std::cout << "\t\t\t\t\t\t\t\t\t+---------------------+\n" << std::endl;
     }
 
