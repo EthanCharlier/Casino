@@ -21,7 +21,9 @@ const std::string MAGENTA = "\033[35m";
 Roulette::Roulette(int initialBalance) : balance(initialBalance){}
 
 void Roulette::init() {
-    std::cout << "Welcome to the roulette game!" << std::endl;
+    std::cout << "\t\t\t\t\t +---------------------------------------------------+" << std::endl;
+    std::cout << "\t\t\t\t\t |  " << CYAN << " W E L C O M E   T O   T H E   R O U L E T T E " << RESET << "  |" << std::endl;
+    std::cout << "\t\t\t\t\t +---------------------------------------------------+" << std::endl;
 }
 
 std::string Roulette::showGame(std::map<std::string, int> bets) {
