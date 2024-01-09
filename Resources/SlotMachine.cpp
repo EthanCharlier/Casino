@@ -22,14 +22,17 @@ const std::string MAGENTA = "\033[35m";
 SlotMachine::SlotMachine(int initialBalance) : balance(initialBalance) {}
 
 bool SlotMachine::init() {
-    std::cout << "\t\t\t\t +-----------------------------+-----------------------------+" << std::endl;
+    std::cout << "\t\t\t\t +-----------------------------------------------------------+" << std::endl;
     std::cout << "\t\t\t\t |  " << CYAN << " W E L C O M E   T O   T H E   S L O T   M A C H I N E " << RESET << "  |" << std::endl;
-    std::cout << "\t\t\t\t +-----------------------------+-----------------------------+" << std::endl;
+    std::cout << "\t\t\t\t +-----------------------------------------------------------+" << std::endl;
 
     std::cout << "\n"
-                 "Slot machines, casino staples, involve spinning reels and aligning symbols for potential payouts. No \n"
-                 "intricate rules—just insert credits, spin, and hope for winning combos. Themes, bonuses, and jackpots \n"
-                 "enhance the excitement, making slots a favorite for all types of players..\n" << std::endl;
+                 " +-------------------------------------------------------------------------------------------+\n"
+                 " |  Slot machines, casino staples, involve spinning reels and aligning symbols for potential |\n"
+                 " |    payouts. No intricate rules—just insert credits, spin, and hope for winning combos.    |\n"
+                 " |   Themes, bonuses, and jackpots enhance the excitement, making slots a favorite for all   |\n"
+                 " |                                     types of players..                                    |\n"
+                 " +-------------------------------------------------------------------------------------------+\n"<< std::endl;
 
     std::string userChoice;
     std::cout << "Ready to play? (y/n)" << std::endl;

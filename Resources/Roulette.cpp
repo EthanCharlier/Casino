@@ -26,9 +26,12 @@ bool Roulette::init() {
     std::cout << "\t\t\t\t\t +---------------------------------------------------+" << std::endl;
 
     std::cout << "\n"
-                 "Roulette, a casino classic, involves betting on where a spinning ball will land on a numbered wheel. \n"
-                 "Players can choose specific numbers or broader options like red or black. It's a game of anticipation, \n"
-                 "with straightforward rules and diverse betting choices, making roulette a timeless and thrilling casino experience.\n" << std::endl;
+                 " +-------------------------------------------------------------------------------------------+\n"
+                 " |    Roulette, a casino classic, involves betting on where a spinning ball will land on a   |\n"
+                 " | numbered wheel. Players can choose specific numbers or broader options like red or black. |\n"
+                 " |    It's a game of anticipation, with straightforward rules and diverse betting choices    |\n"
+                 " |                making roulette a timeless and thrilling casino experience.                |\n"
+                 " +-------------------------------------------------------------------------------------------+\n"<< std::endl;
 
     std::string userChoice;
     std::cout << "Ready to play? (y/n)" << std::endl;

@@ -106,6 +106,10 @@ int main() {
         std::cout << "\t\t\t\t\t\t   |           " << YELLOW << " R O U L E T T E " << RESET << "           |" << std::endl;
         std::cout << "\t\t\t\t\t\t   +------------------ " << MAGENTA << "3" << RESET << " ------------------+\n" << std::endl;
 
+        std::cout << "\t\t\t\t\t\t\t\t\t +-------- " << MAGENTA << "0" << RESET << " --------+ " << std::endl;
+        std::cout << "\t\t\t\t\t\t\t\t\t |     " << CYAN << " S T O P " << RESET << "     | " << std::endl;
+        std::cout << "\t\t\t\t\t\t\t\t\t +-------- " << MAGENTA << "0" << RESET << " --------+ " << std::endl;
+
         std::cout << "\nWhat game would you like to play?" << std::endl;
         std::cin >> gameChoice;
         switch (std::stoi(gameChoice)) {
@@ -120,6 +124,9 @@ int main() {
                 break;
             default:
                 stop = true;
+                std::cout << "\n\t\t\t\t\t\t\t\t +-----------------------+" << std::endl;
+                std::cout << "\t\t\t\t\t\t\t\t |    " << CYAN << " G O O D B Y E " << RESET << "    | " << std::endl;
+                std::cout << "\t\t\t\t\t\t\t\t +-----------------------+\n" << std::endl;
                 break;
         }
     } while (!stop);
