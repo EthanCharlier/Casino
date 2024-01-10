@@ -85,6 +85,12 @@ int Craps::getBet() {
     std::cout << "\t\t\t\t\t\t\t\t  | YOUR BALANCE : " << RED << std::setw(8) << std::right << balance << RESET << " |" << std::endl;
     std::cout << "\t\t\t\t\t\t\t\t  +-------------------------+\n" << std::endl;
 
+    std::cout << "\t\t\t\t\t\t +-------- " << MAGENTA << "0" << RESET << " --------+ " <<
+              "  +-------- " << MAGENTA << "1" << RESET << " --------+" << std::endl;
+    std::cout << "\t\t\t\t\t\t |   " << CYAN << " C U S T O M " << RESET << "   | " << "  |     " << YELLOW << " ALL  IN " << RESET << "     |" << std::endl;
+    std::cout << "\t\t\t\t\t\t +-------- " << MAGENTA << "0" << RESET << " --------+ " <<
+              "  +-------- " << MAGENTA << "1" << RESET << " --------+" << std::endl;
+
     if (balance >= 100) {
         std::cout << " +---- " << MAGENTA << "2" << RESET << " ----+ " <<
                   "  +---- " << MAGENTA << "3" << RESET << " ----+ " <<

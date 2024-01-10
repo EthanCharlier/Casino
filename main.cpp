@@ -1,6 +1,7 @@
 #include "headers/SlotMachine.h"
 #include "headers/Craps.h"
 #include "headers/Roulette.h"
+#include "headers/SicBo.h"
 
 #include <iostream>
 #include <string>
@@ -75,6 +76,27 @@ int rouletteGame(int balance) {
     return roulette.getBalance();
 }
 
+int sicBoGame(int balance) {
+    SicBo sicBo(balance);
+    if (!sicBo.init()) {
+        return balance;
+    }
+    char playAgain;
+    do {
+        sicBo.play();
+        if (sicBo.getBalance() > 0) {
+            std::cout << "Play again? (y/n) ";
+            std::cin >> playAgain;
+            std::cin.ignore();
+            std::cout << std::endl;
+        } else {
+            break;
+        }
+    } while (playAgain == 'y' || playAgain == 'Y');
+    std::cout << "Thank you!" << std::endl;
+    return sicBo.getBalance();
+}
+
 int main() {
     int userBalance = 300;
 
@@ -106,6 +128,10 @@ int main() {
         std::cout << "\t\t\t\t\t\t   |           " << YELLOW << " R O U L E T T E " << RESET << "           |" << std::endl;
         std::cout << "\t\t\t\t\t\t   +------------------ " << MAGENTA << "3" << RESET << " ------------------+\n" << std::endl;
 
+        std::cout << "\t\t\t\t\t\t   +------------------ " << MAGENTA << "4" << RESET << " ------------------+" << std::endl;
+        std::cout << "\t\t\t\t\t\t   |             " << YELLOW << " S I C   B O " << RESET << "             |" << std::endl;
+        std::cout << "\t\t\t\t\t\t   +------------------ " << MAGENTA << "4" << RESET << " ------------------+\n" << std::endl;
+
         std::cout << "\t\t\t\t\t\t\t\t\t +-------- " << MAGENTA << "0" << RESET << " --------+ " << std::endl;
         std::cout << "\t\t\t\t\t\t\t\t\t |     " << CYAN << " S T O P " << RESET << "     | " << std::endl;
         std::cout << "\t\t\t\t\t\t\t\t\t +-------- " << MAGENTA << "0" << RESET << " --------+ " << std::endl;
@@ -121,6 +147,9 @@ int main() {
                 break;
             case 3:
                 userBalance = rouletteGame(userBalance);
+                break;
+            case 4:
+                userBalance = sicBoGame(userBalance);
                 break;
             default:
                 stop = true;

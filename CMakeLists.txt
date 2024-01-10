@@ -9,4 +9,6 @@ add_executable(Casino main.cpp
         Headers/Craps.h
         Resources/Craps.cpp
         Headers/Roulette.h
-        Resources/Roulette.cpp)
+        Resources/Roulette.cpp
+        Headers/SicBo.h
+        Resources/SicBo.cpp)
