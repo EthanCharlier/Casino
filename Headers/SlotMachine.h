@@ -17,8 +17,18 @@ public:
 
 private:
     int balance;
+
+    const std::string symbolsTypeFruits[8] = {"🍇", "🍉", "🍊", "🍋", "🍌", "🍎", "🍒", "🥝"};
+    const std::string symbolsTypeSweets[8] = {"🍦", "🍧", "🍨", "🍩", "🍪", "🍫", "🍬", "🍭"};
+    const std::string symbolsTypeHearts[8] = {"🩷", "🧡", "💛", "💚", "💙", "🩵", "💜", "🤎"};
+    const std::string symbolsTypeMoon[8] = {"🌑", "🌒", "🌓", "🌔", "🌕", "🌖", "🌗", "🌘"};
+    const std::string symbolsTypeWeather[8] = {"☁️", "⛅", "☀️", "🌨️", "🌩️", "🌪️", "🌧️", "🌤️"};
+    const std::string symbolsTypeAnimals[8] = {"🐻", "🐨", "🐼", "🐵", "🐷", "🦊", "🐮", "🐯"};
+
+    int slotMachineTypeChoice();
+
     int getBet();
-    void spinReels(std::string reels[5]);
+    void spinReels(std::string reels[5], int userChoice);
     std::map<std::string, int> displayReels(std::string reels[5]);
     int calcResult(std::map<std::string, int> results, int bet);
 };

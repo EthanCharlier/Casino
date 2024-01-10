@@ -54,11 +54,12 @@ void SlotMachine::play() {
         return;
     }
     int initialBalance = balance;
+    int userChoice = slotMachineTypeChoice();
     int bet = getBet();
     balance -= bet;
 
     std::string reels[5];
-    spinReels(reels);
+    spinReels(reels, userChoice);
     std::map<std::string, int> results = displayReels(reels);
 
     int result = calcResult(results, bet);
@@ -77,6 +78,30 @@ void SlotMachine::play() {
     std::cout << "\t\t\t\t\t\t\t\t  +-------------------------+" << std::endl;
     std::cout << "\t\t\t\t\t\t\t\t  | YOUR BALANCE : " << RED << std::setw(8) << std::right << balance << RESET << " |" << std::endl;
     std::cout << "\t\t\t\t\t\t\t\t  +-------------------------+\n" << std::endl;
+}
+
+int SlotMachine::slotMachineTypeChoice() {
+    std::string userChoice;
+
+    std::cout << "        +-----------+------------+-------------+-------------+-------------+-----------+" << std::endl;
+    std::cout << "        |                                                                              |" << std::endl;
+    std::cout << "        |\t\t +--------- " << CYAN << "Default" << RESET << " ---------+   +---------- " << CYAN << "Sweet" << RESET << " ----------+         |" << std::endl;
+    std::cout << "        |\t\t | 🍇 🍉 🍊 🍋 🍌 🍎 🍒 🥝 |   | 🍦 🍧 🍨 🍩 🍪 🍫 🍬 🍭 |         |"<< std::endl;
+    std::cout << "        |\t\t +------------ " << MAGENTA << "0" << RESET << " ------------+   +------------ " << MAGENTA << "1" << RESET << " ------------+         |" << std::endl;
+    std::cout << "        |                                                                              |" << std::endl;
+    std::cout << "        |\t\t +---------- " << CYAN << "Heart" << RESET << " ----------+   +---------- " << CYAN << "Moons" << RESET << " ----------+         |" << std::endl;
+    std::cout << "        |\t\t | 🩷 🧡 💛 💚 💙 🩵 💜 🤎 |   | 🌑 🌒 🌓 🌔 🌕 🌖 🌗 🌘 |         |"<< std::endl;
+    std::cout << "        |\t\t +------------ " << MAGENTA << "2" << RESET << " ------------+   +------------ " << MAGENTA << "3" << RESET << " ------------+         |" << std::endl;
+    std::cout << "        |                                                                              |" << std::endl;
+    std::cout << "        |\t\t +--------- " << CYAN << "Weather" << RESET << " ---------+   +--------- " << CYAN << "Animals" << RESET << " ---------+         |" << std::endl;
+    std::cout << "        |\t\t | ☁️ ⛅ ☀️ 🌨️ 🌩️ 🌪️ 🌧️ 🌤️ |   | 🐻 🐨 🐼 🐵 🐷 🦊 🐮 🐯 |         |"<< std::endl;
+    std::cout << "        |\t\t +------------ " << MAGENTA << "4" << RESET << " ------------+   +------------ " << MAGENTA << "5" << RESET << " ------------+         |" << std::endl;
+    std::cout << "        |                                                                              |" << std::endl;
+    std::cout << "        +-----------+------------+-------------+-------------+-------------+-----------+" << std::endl;
+
+    std::cout << "\nWhich options do you choose?" << std::endl;
+    std::cin >> userChoice;
+    return std::stoi(userChoice);
 }
 
 int SlotMachine::getBet() {
@@ -186,11 +211,31 @@ int SlotMachine::getBet() {
     return bet;
 }
 
-void SlotMachine::spinReels(std::string reels[5]) {
-    const std::string symbols[] = {"🍀", "💲", "💵", "🍇", "🍋", "🍒", "🎲", "🎱️"};
+void SlotMachine::spinReels(std::string reels[5], int userChoice) {
+    const std::string* symbols;
+    switch (userChoice) {
+        case 1:
+            symbols = symbolsTypeSweets;
+            break;
+        case 2:
+            symbols = symbolsTypeHearts;
+            break;
+        case 3:
+            symbols = symbolsTypeMoon;
+            break;
+        case 4:
+            symbols = symbolsTypeWeather;
+            break;
+        case 5:
+            symbols = symbolsTypeAnimals;
+            break;
+        default:
+            symbols = symbolsTypeFruits;
+            break;
+    }
     srand(time(0));
     for (int i = 0; i < 5; ++i) {
-        int randomIndex = rand() % (sizeof(symbols) / sizeof(symbols[0]));
+        int randomIndex = rand() % 8;
         reels[i] = symbols[randomIndex];
     }
 }
