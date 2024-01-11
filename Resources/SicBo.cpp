@@ -7,6 +7,7 @@
 #include <iostream>
 #include <iomanip>
 #include <utility>
+#include <list>
 
 const std::string RESET = "\033[0m";
 const std::string WHITE = "\033[37m";
@@ -22,6 +23,7 @@ bool SicBo::init() {
     std::cout << "\t\t\t\t\t +---------------------------------------------------+" << std::endl;
     std::cout << "\t\t\t\t\t |    " << CYAN << " W E L C O M E   T O   T H E   S I C   B O " << RESET << "    |" << std::endl;
     std::cout << "\t\t\t\t\t +---------------------------------------------------+" << std::endl;
+    std::srand(static_cast<unsigned int>(std::time(nullptr)));
 
     std::cout << "\n"
                  " +-------------------------------------------------------------------------------------------+\n"
@@ -51,6 +53,9 @@ void SicBo::play() {
     }
     int initialBalance = balance;
     std::pair<std::string, int> bet = getBet();
+
+    std::list<int> diceList = rollDices();
+    displayRoll(diceList);
 
     if (balance - initialBalance < 0) {
         std::cout << "\n\t\t\t\t\t\t\t\t\t+---------------------+" << std::endl;
@@ -338,4 +343,64 @@ std::pair<std::string, int> SicBo::getBet() {
     }
 
     return std::make_pair(betType, betNumber);
+}
+
+std::list<int> SicBo::rollDices() {
+    std::list<int> diceList;
+    int first = rand() % 6 + 1;
+    diceList.push_back(first);
+    int second = rand() % 6 + 1;
+    diceList.push_back(second);
+    int third = rand() % 6 + 1;
+    diceList.push_back(third);
+    return diceList;
+}
+
+void SicBo::displayRoll(std::list<int> diceList) {
+    for (const int& dice : diceList) {
+        switch (dice) {
+            case 1:
+                std::cout << " +-----------+  " << std::endl;
+                std::cout << " |           |  " << std::endl;
+                std::cout << " |     ▫     |  " << std::endl;
+                std::cout << " |           |  " << std::endl;
+                std::cout << " +-----------+  " << std::endl;
+                break;
+            case 2:
+                std::cout << " +-----------+  " << std::endl;
+                std::cout << " |  ▫        |  " << std::endl;
+                std::cout << " |           |  " << std::endl;
+                std::cout << " |        ▫  |  " << std::endl;
+                std::cout << " +-----------+  " << std::endl;
+                break;
+            case 3:
+                std::cout << " +-----------+  " << std::endl;
+                std::cout << " |  ▫        |  " << std::endl;
+                std::cout << " |     ▫     |  " << std::endl;
+                std::cout << " |        ▫  |  " << std::endl;
+                std::cout << " +-----------+  " << std::endl;
+                break;
+            case 4:
+                std::cout << " +-----------+  " << std::endl;
+                std::cout << " |  ▫     ▫  |  " << std::endl;
+                std::cout << " |           |  " << std::endl;
+                std::cout << " |  ▫     ▫  |  " << std::endl;
+                std::cout << " +-----------+  " << std::endl;
+                break;
+            case 5:
+                std::cout << " +-----------+  " << std::endl;
+                std::cout << " |  ▫     ▫  |  " << std::endl;
+                std::cout << " |     ▫     |  " << std::endl;
+                std::cout << " |  ▫     ▫  |  " << std::endl;
+                std::cout << " +-----------+  " << std::endl;
+                break;
+            default :
+                std::cout << " +-----------+  " << std::endl;
+                std::cout << " |  ▫     ▫  |  " << std::endl;
+                std::cout << " |  ▫     ▫  |  " << std::endl;
+                std::cout << " |  ▫     ▫  |  " << std::endl;
+                std::cout << " +-----------+  " << std::endl;
+                break;
+        }
+    }
 }
