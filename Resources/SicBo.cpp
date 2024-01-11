@@ -70,6 +70,7 @@ void SicBo::play() {
 std::pair<std::string, int> SicBo::getBet() {
     std::pair<std::string, int> bet;
     std::string betType;
+    int betNumber;
 
     std::string betTypeChoice;
     std::string betChoice;
@@ -313,5 +314,28 @@ std::pair<std::string, int> SicBo::getBet() {
         std::cout << "\t\t\t\t\t\t\t\t\t\t +---- " << MAGENTA << "2" << RESET << " ----+ " << std::endl;
     }
 
-    return bet;
+    std::cout << "\nWhich options do you choose?" << std::endl;
+    std::cin >> betChoice;
+    if (betChoice == "1") {
+        betNumber = balance;
+    } else if (betChoice == "2") {
+        betNumber = 1;
+    } else if (betChoice == "3" && balance >= 5) {
+        betNumber = 5;
+    } else if (betChoice == "4" && balance >= 10) {
+        betNumber = 10;
+    } else if (betChoice == "5" && balance >= 25) {
+        betNumber = 25;
+    } else if (betChoice == "5" && balance >= 25) {
+        betNumber = 25;
+    } else if (betChoice == "7" && balance >= 100) {
+        betNumber = 100;
+    } else {
+        do {
+            std::cout << "How much is your bet? (" << balance << ")" << std::endl;
+            std::cin >> betNumber;
+        } while (betNumber < 1 || betNumber > balance);
+    }
+
+    return std::make_pair(betType, betNumber);
 }
