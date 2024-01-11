@@ -360,47 +360,49 @@ void SicBo::displayRoll(std::list<int> diceList) {
     for (const int& dice : diceList) {
         switch (dice) {
             case 1:
-                std::cout << " +-----------+  " << std::endl;
-                std::cout << " |           |  " << std::endl;
-                std::cout << " |     ▫     |  " << std::endl;
-                std::cout << " |           |  " << std::endl;
-                std::cout << " +-----------+  " << std::endl;
+                std::cout << "\t\t\t\t\t\t\t\t\t\t +-----------+  " << std::endl;
+                std::cout << "\t\t\t\t\t\t\t\t\t\t |           |  " << std::endl;
+                std::cout << "\t\t\t\t\t\t\t\t\t\t |     ▫     |  " << std::endl;
+                std::cout << "\t\t\t\t\t\t\t\t\t\t |           |  " << std::endl;
+                std::cout << "\t\t\t\t\t\t\t\t\t\t +-----------+  " << std::endl;
                 break;
             case 2:
-                std::cout << " +-----------+  " << std::endl;
-                std::cout << " |  ▫        |  " << std::endl;
-                std::cout << " |           |  " << std::endl;
-                std::cout << " |        ▫  |  " << std::endl;
-                std::cout << " +-----------+  " << std::endl;
+                std::cout << "\t\t\t\t\t\t\t\t\t\t +-----------+  " << std::endl;
+                std::cout << "\t\t\t\t\t\t\t\t\t\t |  ▫        |  " << std::endl;
+                std::cout << "\t\t\t\t\t\t\t\t\t\t |           |  " << std::endl;
+                std::cout << "\t\t\t\t\t\t\t\t\t\t |        ▫  |  " << std::endl;
+                std::cout << "\t\t\t\t\t\t\t\t\t\t +-----------+  " << std::endl;
                 break;
             case 3:
-                std::cout << " +-----------+  " << std::endl;
-                std::cout << " |  ▫        |  " << std::endl;
-                std::cout << " |     ▫     |  " << std::endl;
-                std::cout << " |        ▫  |  " << std::endl;
-                std::cout << " +-----------+  " << std::endl;
+                std::cout << "\t\t\t\t\t\t\t\t\t\t +-----------+  " << std::endl;
+                std::cout << "\t\t\t\t\t\t\t\t\t\t |  ▫        |  " << std::endl;
+                std::cout << "\t\t\t\t\t\t\t\t\t\t |     ▫     |  " << std::endl;
+                std::cout << "\t\t\t\t\t\t\t\t\t\t |        ▫  |  " << std::endl;
+                std::cout << "\t\t\t\t\t\t\t\t\t\t +-----------+  " << std::endl;
                 break;
             case 4:
-                std::cout << " +-----------+  " << std::endl;
-                std::cout << " |  ▫     ▫  |  " << std::endl;
-                std::cout << " |           |  " << std::endl;
-                std::cout << " |  ▫     ▫  |  " << std::endl;
-                std::cout << " +-----------+  " << std::endl;
+                std::cout << "\t\t\t\t\t\t\t\t\t\t +-----------+  " << std::endl;
+                std::cout << "\t\t\t\t\t\t\t\t\t\t |  ▫     ▫  |  " << std::endl;
+                std::cout << "\t\t\t\t\t\t\t\t\t\t |           |  " << std::endl;
+                std::cout << "\t\t\t\t\t\t\t\t\t\t |  ▫     ▫  |  " << std::endl;
+                std::cout << "\t\t\t\t\t\t\t\t\t\t +-----------+  " << std::endl;
                 break;
             case 5:
-                std::cout << " +-----------+  " << std::endl;
-                std::cout << " |  ▫     ▫  |  " << std::endl;
-                std::cout << " |     ▫     |  " << std::endl;
-                std::cout << " |  ▫     ▫  |  " << std::endl;
-                std::cout << " +-----------+  " << std::endl;
+                std::cout << "\t\t\t\t\t\t\t\t\t\t +-----------+  " << std::endl;
+                std::cout << "\t\t\t\t\t\t\t\t\t\t |  ▫     ▫  |  " << std::endl;
+                std::cout << "\t\t\t\t\t\t\t\t\t\t |     ▫     |  " << std::endl;
+                std::cout << "\t\t\t\t\t\t\t\t\t\t |  ▫     ▫  |  " << std::endl;
+                std::cout << "\t\t\t\t\t\t\t\t\t\t +-----------+  " << std::endl;
                 break;
             default :
-                std::cout << " +-----------+  " << std::endl;
-                std::cout << " |  ▫     ▫  |  " << std::endl;
-                std::cout << " |  ▫     ▫  |  " << std::endl;
-                std::cout << " |  ▫     ▫  |  " << std::endl;
-                std::cout << " +-----------+  " << std::endl;
+                std::cout << "\t\t\t\t\t\t\t\t\t\t +-----------+  " << std::endl;
+                std::cout << "\t\t\t\t\t\t\t\t\t\t |  ▫     ▫  |  " << std::endl;
+                std::cout << "\t\t\t\t\t\t\t\t\t\t |  ▫     ▫  |  " << std::endl;
+                std::cout << "\t\t\t\t\t\t\t\t\t\t |  ▫     ▫  |  " << std::endl;
+                std::cout << "\t\t\t\t\t\t\t\t\t\t +-----------+  " << std::endl;
                 break;
         }
     }
 }
+
+int SicBo::calcResult(std::pair<std::string, int> bet, std::list<int> diceList) {return 0;}

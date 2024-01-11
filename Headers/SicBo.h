@@ -21,6 +21,7 @@ private:
     std::pair<std::string, int> getBet();
     std::list<int> rollDices();
     void displayRoll(std::list<int> diceList);
+    int calcResult(std::pair<std::string, int> bet, std::list<int> diceList);
 };
 
 #endif //CASINO_SICBO_H
