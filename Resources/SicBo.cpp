@@ -8,6 +8,7 @@
 #include <iomanip>
 #include <utility>
 #include <list>
+#include <numeric>
 
 const std::string RESET = "\033[0m";
 const std::string WHITE = "\033[37m";
@@ -405,4 +406,38 @@ void SicBo::displayRoll(std::list<int> diceList) {
     }
 }
 
-int SicBo::calcResult(std::pair<std::string, int> bet, std::list<int> diceList) {return 0;}
+int SicBo::calcResult(std::pair<std::string, int> bet, std::list<int> diceList) {
+    int diceListSum = makeSum(diceList);
+    int diceListSameValues = countSameValues(diceList);
+    if ((bet.first[0] == '0' && (11 <= diceListSum && diceListSum < 18)) || (bet.first[0] == '1' && (4 <= diceListSum))) {
+        return bet.second;
+    } else if (bet.first[0] == '2') {
+        std::string betThirdCharacter = bet.first.substr(2, 2);
+        std::string diceListFirstElementAsString = std::to_string(*diceList.begin());
+        if (bet.first[1] == '2' && isEqual(diceList) && betThirdCharacter == diceListFirstElementAsString) {
+            return bet.second * 3;
+        } else if (/**/) {
+            return bet.
+        }
+    }
+    return 0;
+}
+
+int SicBo::makeSum(std::list<int> diceList) {
+    return std::accumulate(diceList.begin(), diceList.end(), 0);
+}
+
+int SicBo::countSameValues(std::list<int> diceList) {
+    std::list<int> sortedList = diceList;
+    sortedList.sort();
+    sortedList.unique();
+    int uniqueCount = std::distance(sortedList.begin(), sortedList.end());
+    return uniqueCount;
+}
+
+bool SicBo::isEqual(std::list<int> diceList) {
+    auto firstElement = diceList.begin();
+    return std::all_of(diceList.begin(), diceList.end(), [=](const auto& element) {
+        return element == *firstElement;
+    });
+}
