@@ -24,8 +24,7 @@ private:
 
     int calcResult(std::pair<std::string, int> bet, std::list<int> diceList);
     int makeSum(std::list<int> diceList);
-    int countSameValues(std::list<int> diceList);
-    bool isEqual(std::list<int> diceList);
+    int sameValues(std::list<int> diceList, int targetDice);
 };
 
 #endif //CASINO_SICBO_H

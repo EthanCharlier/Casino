@@ -9,6 +9,7 @@
 #include <utility>
 #include <list>
 #include <numeric>
+#include <algorithm>
 
 const std::string RESET = "\033[0m";
 const std::string WHITE = "\033[37m";
@@ -57,6 +58,8 @@ void SicBo::play() {
 
     std::list<int> diceList = rollDices();
     displayRoll(diceList);
+
+    calcResult(bet, diceList);
 
     if (balance - initialBalance < 0) {
         std::cout << "\n\t\t\t\t\t\t\t\t\t+---------------------+" << std::endl;
@@ -119,13 +122,13 @@ std::pair<std::string, int> SicBo::getBet() {
         std::string singleNumberDice;
         std::string singleNumberNumber;
 
-        std::cout << "\t\t\t\t\t\t\t\t    +--------- " << MAGENTA << "0" << RESET << " ---------+" << std::endl;
+        std::cout << "\t\t\t\t\t\t\t\t    +--------- " << MAGENTA << "1" << RESET << " ---------+" << std::endl;
         std::cout << "\t\t\t\t\t\t\t\t    |   " << CYAN << "O N E   D I C E" << RESET << "   |"<< std::endl;
-        std::cout << "\t\t\t\t\t\t\t\t    +--------- " << MAGENTA << "0" << RESET << " ---------+" << std::endl;
+        std::cout << "\t\t\t\t\t\t\t\t    +--------- " << MAGENTA << "1" << RESET << " ---------+" << std::endl;
 
-        std::cout << "\t\t\t\t\t\t\t\t   +---------- " << MAGENTA << "1" << RESET << " ----------+" << std::endl;
+        std::cout << "\t\t\t\t\t\t\t\t   +---------- " << MAGENTA << "2" << RESET << " ----------+" << std::endl;
         std::cout << "\t\t\t\t\t\t\t\t   |    " << CYAN << "T W O   D I C E" << RESET << "    |"<< std::endl;
-        std::cout << "\t\t\t\t\t\t\t\t   +---------- " << MAGENTA << "1" << RESET << " ----------+" << std::endl;
+        std::cout << "\t\t\t\t\t\t\t\t   +---------- " << MAGENTA << "2" << RESET << " ----------+" << std::endl;
 
         std::cout << "\t\t\t\t\t\t\t\t  +----------- " << MAGENTA << "3" << RESET << " -----------+" << std::endl;
         std::cout << "\t\t\t\t\t\t\t\t  |   " << CYAN << "T H R E E   D I C E" << RESET << "   |"<< std::endl;
@@ -407,37 +410,47 @@ void SicBo::displayRoll(std::list<int> diceList) {
 }
 
 int SicBo::calcResult(std::pair<std::string, int> bet, std::list<int> diceList) {
-    int diceListSum = makeSum(diceList);
-    int diceListSameValues = countSameValues(diceList);
-    if ((bet.first[0] == '0' && (11 <= diceListSum && diceListSum < 18)) || (bet.first[0] == '1' && (4 <= diceListSum))) {
-        return bet.second;
+    std::cout << bet.first << std::endl;
+    if (bet.first[0] == '0' || bet.first[0] == '1') {
+        int diceListSum = makeSum(diceList);
+        if ((diceListSum >= 4 && diceListSum <= 17) /* ...... */) {
+            std::cout << "Small || Big" << std::endl;
+            return bet.second;
+        } else {
+            return 0;
+        }
     } else if (bet.first[0] == '2') {
-        std::string betThirdCharacter = bet.first.substr(2, 2);
-        std::string diceListFirstElementAsString = std::to_string(*diceList.begin());
-        if (bet.first[1] == '2' && isEqual(diceList) && betThirdCharacter == diceListFirstElementAsString) {
+        int diceSameValues = sameValues(diceList, std::stoi(std::string(1, bet.first[2])));
+        if (bet.first[1] == '3' && diceSameValues == 3) {
+            std::cout << "Single Number: Three" << std::endl;
             return bet.second * 3;
-        } else if (/**/) {
-            return bet.
+        } else if (bet.first[1] == '2' && diceSameValues == 2) {
+            std::cout << "Single Number: Two" << std::endl;
+            return bet.second * 2;
+        } else if (bet.first[1] == '1' && diceSameValues == 1){
+            std::cout << "Single Number: One" << std::endl;
+            return bet.second;
+        } else {
+            return 0;
         }
     }
     return 0;
 }
 
 int SicBo::makeSum(std::list<int> diceList) {
-    return std::accumulate(diceList.begin(), diceList.end(), 0);
+    int counter;
+    for (int dice : diceList) {
+        counter+=dice;
+    }
+    return counter;
 }
 
-int SicBo::countSameValues(std::list<int> diceList) {
-    std::list<int> sortedList = diceList;
-    sortedList.sort();
-    sortedList.unique();
-    int uniqueCount = std::distance(sortedList.begin(), sortedList.end());
-    return uniqueCount;
-}
-
-bool SicBo::isEqual(std::list<int> diceList) {
-    auto firstElement = diceList.begin();
-    return std::all_of(diceList.begin(), diceList.end(), [=](const auto& element) {
-        return element == *firstElement;
-    });
+int SicBo::sameValues(std::list<int> diceList, int targetDice) {
+    int counter;
+    for (int dice : diceList) {
+        if (dice == targetDice) {
+            counter++;
+        }
+    }
+    return counter;
 }
