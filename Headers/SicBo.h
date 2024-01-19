@@ -5,6 +5,7 @@
 #include <iostream>
 #include <utility>
 #include <list>
+#include <map>
 
 #ifndef CASINO_SICBO_H
 #define CASINO_SICBO_H
@@ -20,11 +21,10 @@ private:
     int balance;
     std::pair<std::string, int> getBet();
     std::list<int> rollDices();
-    void displayRoll(std::list<int> diceList);
+    std::map<int, int> displayRoll(std::list<int> diceList);
 
-    int calcResult(std::pair<std::string, int> bet, std::list<int> diceList);
-    int makeSum(std::list<int> diceList);
-    int sameValues(std::list<int> diceList, int targetDice);
+    int calcResult(std::pair<std::string, int> bet, std::map<int, int> diceList);
+    int makeSum(std::map<int, int> diceList);
 };
 
 #endif //CASINO_SICBO_H
