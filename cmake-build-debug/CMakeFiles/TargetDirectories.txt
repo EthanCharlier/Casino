@@ -1,3 +1,3 @@
-G:/ipi/009-c++/Casino/cmake-build-debug/CMakeFiles/Casino.dir
-G:/ipi/009-c++/Casino/cmake-build-debug/CMakeFiles/edit_cache.dir
-G:/ipi/009-c++/Casino/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+E:/006-ipi/002-tstn2a/009-c++/Casino/cmake-build-debug/CMakeFiles/Casino.dir
+E:/006-ipi/002-tstn2a/009-c++/Casino/cmake-build-debug/CMakeFiles/edit_cache.dir
+E:/006-ipi/002-tstn2a/009-c++/Casino/cmake-build-debug/CMakeFiles/rebuild_cache.dir

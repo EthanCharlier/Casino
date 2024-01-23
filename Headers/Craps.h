@@ -9,7 +9,7 @@
 
 class Craps {
 public:
-    Craps(int initialBalance);
+    Craps(int initialBalance); //Constructor
     bool init();
     void play();
     int getBalance();
