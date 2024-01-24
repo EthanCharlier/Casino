@@ -1,6 +1,5 @@
 // Created by ethan on 22/12/2023.
 
-// Header includes for necessary libraries.
 #include "../headers/Craps.h"
 
 #include <iostream>
@@ -8,7 +7,6 @@
 #include <ctime>
 #include <iomanip>
 
-// Color codes for console text formatting.
 const std::string RESET = "\033[0m";
 const std::string WHITE = "\033[37m";
 const std::string RED = "\033[31m";
@@ -17,18 +15,14 @@ const std::string GREEN = "\033[32m";
 const std::string CYAN = "\033[36m";
 const std::string MAGENTA = "\033[35m";
 
-// Constructor for the Craps class, initializing balance.
 Craps::Craps(int initialBalance) : balance(initialBalance) {}
 
-// Initialization function for the Craps game.
 bool Craps::init() {
-    // Display welcome message and game information.
     std::cout << "\t\t\t\t  +----------------------------+----------------------------+" << std::endl;
     std::cout << "\t\t\t\t  |   " << CYAN << " W E L C O M E   T O   T H E   C R A P S   G A M E " << RESET << "   |" << std::endl;
     std::cout << "\t\t\t\t  +----------------------------+----------------------------+" << std::endl;
     std::srand(static_cast<unsigned int>(std::time(nullptr)));
 
-    // Display game rules and ask the user if they are ready to play.
     std::cout << "\n"
                  " +-------------------------------------------------------------------------------------------+\n"
                  " |                Craps is a dynamic dice game played with two six-sided dice.               |\n"
@@ -49,12 +43,10 @@ bool Craps::init() {
     }
 }
 
-// Function to get the current balance.
 int Craps::getBalance() {
     return balance;
 }
 
-// Function to play the Craps game.
 void Craps::play() {
     if (balance <= 0) {
         return;
@@ -67,7 +59,6 @@ void Craps::play() {
     int result = calcResult(dices, bet);
     balance += result;
 
-    // Display the outcome of the game and the current balance.
     if (balance - initialBalance < 0) {
         std::cout << "\n\t\t\t\t\t\t\t\t\t+---------------------+" << std::endl;
         std::cout << "\t\t\t\t\t\t\t\t\t| YOUR LOST : " << RED << std::setw(7) << std::right << balance - initialBalance << RESET << " |" << std::endl;
@@ -83,15 +74,9 @@ void Craps::play() {
     std::cout << "\t\t\t\t\t\t\t\t  +-------------------------+\n" << std::endl;
 }
 
-// Function to get the user's bet amount.
 int Craps::getBet() {
     int bet;
     std::string betChoice;
-
-    /* Display available betting options based on the user's balance.
-     * The user can choose a preset bet or enter a custom bet amount.
-     * Ensure the entered bet is valid.
-     * Return the chosen bet amount. */
 
     std::cout << "\t\t\t\t\t\t\t\t  +-------------------------+" << std::endl;
     std::cout << "\t\t\t\t\t\t\t\t  | YOUR BALANCE : " << RED << std::setw(8) << std::right << balance << RESET << " |" << std::endl;
@@ -196,7 +181,6 @@ int Craps::getBet() {
     return bet;
 }
 
-// Function to simulate rolling dice and calculate the sum.
 int Craps::rollDices() {
     int first = rand() % 6 + 1;
     int second = rand() % 6 + 1;
@@ -204,10 +188,7 @@ int Craps::rollDices() {
     return sum;
 }
 
-// Function to display the result of the dice roll.
 void Craps::displayRoll(int newResult, int point) {
-
-    // Display the result of the dice roll in a stylized manner.
 
     if (newResult == 7) {
         std::cout << WHITE << "\t\t\t\t\t\t\t\t\t\t +-----------+" << RESET << std::endl;
@@ -246,10 +227,7 @@ void Craps::displayRoll(int newResult, int point) {
     }
 }
 
-// Function to calculate the result of the game based on the dice roll and the bet.
 int Craps::calcResult(int dices, int bet) {
-
-    // Calculate the result of the game based on the dice roll and the user's bet.
 
     if (dices == 7 || dices == 11) {
         if (dices == 7) {
