@@ -1,17 +1,15 @@
-//
 // Created by ethan on 10/01/2024.
-//
 
-#include "../headers/SicBo.h"
+#include "../headers/SicBo.h" // Include the header file for the SicBo class
 
 #include <iostream>
 #include <iomanip>
 #include <utility>
 #include <list>
-#include <numeric>
 #include <algorithm>
 #include <map>
 
+// Define ANSI escape codes for colored console output
 const std::string RESET = "\033[0m";
 const std::string WHITE = "\033[37m";
 const std::string RED = "\033[31m";
@@ -20,14 +18,19 @@ const std::string GREEN = "\033[32m";
 const std::string CYAN = "\033[36m";
 const std::string MAGENTA = "\033[35m";
 
+// Constructor for the SicBo class, initializing the balance
 SicBo::SicBo(int initialBalance) : balance(initialBalance){}
 
+// Initialization function for the game
 bool SicBo::init() {
+    // Display welcome message and game rules
+    // Prompt user if they are ready to play
     std::cout << "\t\t\t\t\t +---------------------------------------------------+" << std::endl;
     std::cout << "\t\t\t\t\t |    " << CYAN << " W E L C O M E   T O   T H E   S I C   B O " << RESET << "    |" << std::endl;
     std::cout << "\t\t\t\t\t +---------------------------------------------------+" << std::endl;
     std::srand(static_cast<unsigned int>(std::time(nullptr)));
 
+    // Display game rules
     std::cout << "\n"
                  " +-------------------------------------------------------------------------------------------+\n"
                  " |        The objective of Sic Bo is to predict the outcome of the roll of three dice.       |\n"
@@ -39,6 +42,7 @@ bool SicBo::init() {
     std::cout << "Ready to play? (y/n)" << std::endl;
     std::cin >> userChoice;
 
+    // Return true if the user wants to play, otherwise false
     if (userChoice == "y" || userChoice == "Y") {
         return true;
     } else {
@@ -46,24 +50,36 @@ bool SicBo::init() {
     }
 }
 
+// Function to get the current balance
 int SicBo::getBalance() {
     return balance;
 }
 
+// Main game loop
 void SicBo::play() {
+    // Check if the balance is zero or negative, if so, return without playing
     if (balance <= 0) {
         return;
     }
+
+    // Save the initial balance
     int initialBalance = balance;
+
+    // Get the bet amount from the user
     std::pair<std::string, int> bet = getBet();
+
+    // Subtract the bet amount from the balance
     balance -= bet.second;
 
+    // Roll the dice, display it and calculate the result
     std::list<int> diceList = rollDices();
     std::map<int, int> diceListFormatted = displayRoll(diceList);
-
     int result = calcResult(bet, diceListFormatted);
+
+    // Add the result to the balance
     balance += result;
 
+    // Display the result and updated balance
     if (balance - initialBalance < 0) {
         std::cout << "\n\t\t\t\t\t\t\t\t\t+---------------------+" << std::endl;
         std::cout << "\t\t\t\t\t\t\t\t\t| YOUR LOST : " << RED << std::setw(7) << std::right << balance - initialBalance << RESET << " |" << std::endl;
@@ -79,6 +95,7 @@ void SicBo::play() {
     std::cout << "\t\t\t\t\t\t\t\t  +-------------------------+\n" << std::endl;
 }
 
+// Function to get the bet amount from the user
 std::pair<std::string, int> SicBo::getBet() {
     std::pair<std::string, int> bet;
     std::string betType;
@@ -87,11 +104,13 @@ std::pair<std::string, int> SicBo::getBet() {
     std::string betTypeChoice;
     std::string betChoice;
 
+    // Display current balance
     std::cout << "\t\t\t\t\t\t\t\t  +-------------------------+" << std::endl;
     std::cout << "\t\t\t\t\t\t\t\t  | YOUR BALANCE : " << RED << std::setw(8) << std::right << balance << RESET << " |"
               << std::endl;
     std::cout << "\t\t\t\t\t\t\t\t  +-------------------------+\n" << std::endl;
 
+    // Display betting options
     std::cout << "\t\t\t\t\t\t\t +------ " << MAGENTA << "0" << RESET << " ------+   +------ " << MAGENTA << "1"
               << RESET << " ------+" << std::endl;
     std::cout << "\t\t\t\t\t\t\t |   " << CYAN << "S M A L L" << RESET << "   |   |     " << CYAN << "B I G" << RESET
@@ -352,6 +371,7 @@ std::pair<std::string, int> SicBo::getBet() {
     return std::make_pair(betType, betNumber);
 }
 
+// Function to roll three six-sided dice and return the sum
 std::list<int> SicBo::rollDices() {
     std::list<int> diceList;
     int first = rand() % 6 + 1;
@@ -363,6 +383,7 @@ std::list<int> SicBo::rollDices() {
     return diceList;
 }
 
+// Function to display the result of the roll
 std::map<int, int> SicBo::displayRoll(std::list<int> diceList) {
     std::map<int, int> diceListFormatted;
     for (const int& dice : diceList) {
@@ -420,6 +441,7 @@ std::map<int, int> SicBo::displayRoll(std::list<int> diceList) {
     return diceListFormatted;
 }
 
+// Function to calculate the result based on the roll of the dice
 int SicBo::calcResult(std::pair<std::string, int> bet, std::map<int, int> diceList) {
     if (bet.first[0] == '0') {
         int sum = makeSum(diceList);
@@ -476,6 +498,7 @@ int SicBo::calcResult(std::pair<std::string, int> bet, std::map<int, int> diceLi
     return 0;
 }
 
+// Function to make the sum of the rolled dices
 int SicBo::makeSum(std::map<int, int> diceList) {
     int sum = 0;
     for (const auto& entry : diceList) {

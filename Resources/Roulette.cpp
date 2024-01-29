@@ -1,8 +1,6 @@
-//
 // Created by ethan on 23/12/2023.
-//
 
-#include "../headers/Roulette.h"
+#include "../headers/Roulette.h" // Include the header file for the Roulette class
 
 #include <iostream>
 #include <map>
@@ -10,6 +8,7 @@
 #include <random>
 #include <iomanip>
 
+// Define ANSI escape codes for colored console output
 const std::string RESET = "\033[0m";
 const std::string WHITE = "\033[37m";
 const std::string RED = "\033[31m";
@@ -18,9 +17,13 @@ const std::string GREEN = "\033[32m";
 const std::string CYAN = "\033[36m";
 const std::string MAGENTA = "\033[35m";
 
+// Constructor for the Roulette class, initializing the balance
 Roulette::Roulette(int initialBalance) : balance(initialBalance){}
 
+// Initialization function for the game
 bool Roulette::init() {
+    // Display welcome message and game rules
+    // Prompt user if they are ready to play
     std::cout << "\t\t\t\t\t +---------------------------------------------------+" << std::endl;
     std::cout << "\t\t\t\t\t |  " << CYAN << " W E L C O M E   T O   T H E   R O U L E T T E " << RESET << "  |" << std::endl;
     std::cout << "\t\t\t\t\t +---------------------------------------------------+" << std::endl;
@@ -45,7 +48,7 @@ bool Roulette::init() {
 }
 
 std::string Roulette::showGame(std::map<std::string, int> bets) {
-
+    // Function to show the current state of the game and get all the user bets
     game = "\n" + WHITE + "+-------+-----+-----+-----+------+------+------+------+------+------+------+------+------+--------+" + RESET + "\n"
             + WHITE + "|       |     |     |     |      |      |      |      |      |      |      |      |      |        |" + RESET + "\n"
 
@@ -156,23 +159,43 @@ std::string Roulette::showGame(std::map<std::string, int> bets) {
     return game;
 }
 
+// Function to get the current balance
 int Roulette::getBalance() {
     return balance;
 }
 
+// Main game loop
 void Roulette::play() {
+    // Check if the balance is zero or negative, if so, return without playing
     if (balance <= 0) {
         return;
     }
+
+    // Save the initial balance
     int initialBalance = balance;
+
+    // Initialize the game tab
     std::map<std::string, std::pair<std::string, bool>>  betChoice = build();
+
+    // Get the user bets
     std::map<std::string, int> bet = getBet(betChoice);
+
+    // Get the spin
     std::string result = spin();
+
+    // Display the game with all the user bets
     std::cout << game << std::endl;
+
+    // Display the result
     displaySpin(betChoice, result);
+
+    // Make the tab ready to build read for the calcResult
     std::map<std::string, std::pair<std::string, bool>>  betResult = makeResult(betChoice, result);
+
+    // Calc the result
     calcResult(betResult, bet);
 
+    // Display the result and updated balance
     if (balance - initialBalance < 0) {
         std::cout << "\n\t\t\t\t\t\t\t\t\t+---------------------+" << std::endl;
         std::cout << "\t\t\t\t\t\t\t\t\t| YOUR LOST : " << RED << std::setw(7) << std::right << balance - initialBalance << RESET << " |" << std::endl;
@@ -188,6 +211,7 @@ void Roulette::play() {
     std::cout << "\t\t\t\t\t\t\t\t  +-------------------------+\n" << std::endl;
 }
 
+// Function to build the game tab
 std::map<std::string, std::pair<std::string, bool>> Roulette::build() {
     std::map<std::string, std::pair<std::string, bool>> bet;
     bet["RED"] = std::make_pair("RED", false); bet["BLACK"] = std::make_pair("BLACK", false);
@@ -210,6 +234,7 @@ std::map<std::string, std::pair<std::string, bool>> Roulette::build() {
     return bet;
 }
 
+// Function to get all the user bets
 std::map<std::string, int> Roulette::getBet(std::map<std::string, std::pair<std::string, bool>> betChoice) {
     std::map<std::string, int> bet;
     do {
@@ -316,6 +341,7 @@ std::map<std::string, int> Roulette::getBet(std::map<std::string, std::pair<std:
     return bet;
 }
 
+// Function to get the bets tab ready to be read
 std::map<std::string, int> Roulette::addBet(std::map<std::string, std::pair<std::string, bool>> betChoice, std::map<std::string, int> bet, int betAddValue) {
     std::string betAddChoice;
     std::cout << "What do you want to add your bet to?" << std::endl;
@@ -333,6 +359,7 @@ std::map<std::string, int> Roulette::addBet(std::map<std::string, std::pair<std:
     return bet;
 }
 
+// Function to spin the roulette
 std::string Roulette::spin() {
     std::random_device rd;
     std::mt19937 gen(rd());
@@ -342,6 +369,7 @@ std::string Roulette::spin() {
     return randomNumStr;
 }
 
+// Function to display the roulette spin result
 void Roulette::displaySpin(std::map<std::string, std::pair<std::string, bool>> betChoice, std::string result) {
     if (result.length() >= 2) {
         if (betChoice[result].first == "RED") {
@@ -380,6 +408,7 @@ void Roulette::displaySpin(std::map<std::string, std::pair<std::string, bool>> b
     }
 }
 
+// Function to make the result tab ready to be read
 std::map<std::string, std::pair<std::string, bool>> Roulette::makeResult(std::map<std::string, std::pair<std::string, bool>> betChoice, std::string result) {
     if (std::stoi(result) >= 1 && std::stoi(result) <= 18) {
         betChoice["1to18"].second = true;
@@ -410,6 +439,7 @@ std::map<std::string, std::pair<std::string, bool>> Roulette::makeResult(std::ma
     return betChoice;
 }
 
+// Function to calc the result
 int Roulette::calcResult(std::map<std::string, std::pair<std::string, bool>> betResult, std::map<std::string, int> bet) {
     for (const auto& pair : bet) {
         if (betResult[pair.first].second) {

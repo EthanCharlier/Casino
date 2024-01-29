@@ -1,8 +1,6 @@
-//
 // Created by ethan on 22/12/2023.
-//
 
-#include "../headers/SlotMachine.h"
+#include "../headers/SlotMachine.h" // Include the header file for the SlotMachine class
 
 #include <iostream>
 #include <cstdlib>
@@ -11,6 +9,7 @@
 #include <map>
 #include <iomanip>
 
+// Define ANSI escape codes for colored console output
 const std::string RESET = "\033[0m";
 const std::string WHITE = "\033[37m";
 const std::string RED = "\033[31m";
@@ -19,9 +18,13 @@ const std::string GREEN = "\033[32m";
 const std::string CYAN = "\033[36m";
 const std::string MAGENTA = "\033[35m";
 
+// Constructor for the SlotMachine class, initializing the balance
 SlotMachine::SlotMachine(int initialBalance) : balance(initialBalance) {}
 
+// Initialization function for the game
 bool SlotMachine::init() {
+    // Display welcome message and game rules
+    // Prompt user if they are ready to play
     std::cout << "\t\t\t\t +-----------------------------------------------------------+" << std::endl;
     std::cout << "\t\t\t\t |  " << CYAN << " W E L C O M E   T O   T H E   S L O T   M A C H I N E " << RESET << "  |" << std::endl;
     std::cout << "\t\t\t\t +-----------------------------------------------------------+" << std::endl;
@@ -38,6 +41,7 @@ bool SlotMachine::init() {
     std::cout << "Ready to play? (y/n)" << std::endl;
     std::cin >> userChoice;
 
+    // Return true if the user wants to play, otherwise false
     if (userChoice == "y" || userChoice == "Y") {
         return true;
     } else {
@@ -45,26 +49,40 @@ bool SlotMachine::init() {
     }
 }
 
+// Function to get the current balance
 int SlotMachine::getBalance() {
     return balance;
 }
 
+// Main game loop
 void SlotMachine::play() {
+    // Check if the balance is zero or negative, if so, return without playing
     if (balance <= 0) {
         return;
     }
+
+    // Save the initial balance
     int initialBalance = balance;
+
+    // Get the bet style of the slot machine
     int userChoice = slotMachineTypeChoice();
+
+    // Get the bet amount from the user
     int bet = getBet();
+
+    // Subtract the bet amount from the balance
     balance -= bet;
 
+    // Roll and calculate the result
     std::string reels[5];
     spinReels(reels, userChoice);
     std::map<std::string, int> results = displayReels(reels);
-
     int result = calcResult(results, bet);
+
+    // Add the result to the balance
     balance += result;
 
+    // Display the result and updated balance
     if (balance - initialBalance < 0) {
         std::cout << "\n\t\t\t\t\t\t\t\t\t+---------------------+" << std::endl;
         std::cout << "\t\t\t\t\t\t\t\t\t| YOUR LOST : " << RED << std::setw(7) << std::right << balance - initialBalance << RESET << " |" << std::endl;
@@ -80,6 +98,7 @@ void SlotMachine::play() {
     std::cout << "\t\t\t\t\t\t\t\t  +-------------------------+\n" << std::endl;
 }
 
+// Function to get the style of the slot machine
 int SlotMachine::slotMachineTypeChoice() {
     std::string userChoice;
 
@@ -104,6 +123,7 @@ int SlotMachine::slotMachineTypeChoice() {
     return std::stoi(userChoice);
 }
 
+// Function to get the bet amount from the user
 int SlotMachine::getBet() {
     int bet;
     std::string betChoice;
@@ -211,6 +231,7 @@ int SlotMachine::getBet() {
     return bet;
 }
 
+// Function to spin the reels
 void SlotMachine::spinReels(std::string reels[5], int userChoice) {
     const std::string* symbols;
     switch (userChoice) {
@@ -240,7 +261,9 @@ void SlotMachine::spinReels(std::string reels[5], int userChoice) {
     }
 }
 
+// Function to display the result of the spin
 std::map<std::string, int> SlotMachine::displayReels(std::string reels[5]) {
+    // Display the result in a stylized manner
     std::map<std::string, int> results;
     std::cout << "\n\t\t\t\t\t\t\t\t  +-------------------------+" << std::endl;
     std::cout << "\t\t\t\t\t\t\t\t  |   ";
@@ -256,6 +279,7 @@ std::map<std::string, int> SlotMachine::displayReels(std::string reels[5]) {
     return results;
 }
 
+// Function to calculate the result based on the spin
 int SlotMachine::calcResult(std::map<std::string, int> results, int bet) {
     switch (results.size()) {
         case 1: // {"A":?}
